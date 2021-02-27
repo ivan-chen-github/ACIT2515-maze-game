@@ -1,3 +1,5 @@
+import random
+
 class Maze:
     def __init__(self, input_file):
         """
@@ -8,7 +10,7 @@ class Maze:
         self._layout = []
         with open(input_file, "r") as in_file:
             self._layout = in_file.read().split("\n")
-#        print(self._layout)
+        print(self._layout)
 
     def check(self, line, col):
         """
@@ -41,10 +43,26 @@ class Maze:
         finds a random empty space in the maze
         code documentation
         """
-        pass
+        line = random.randint(0, len(self._layout)-1)
+        print(line)
+        tile = "Here"
+        while tile != " ":
+            col = random.randint(0, len(self._layout[line])-1)
+            print(col)
+            tile = self._layout[line][col]
+            print(f"tile: {tile}")
+        print(line, col, tile)
+        return line, col #This returns index, so it's line/col number -1
 
+
+#Tests
 tester = Maze("test.txt")
+"""
 print("Display")
 tester.display()
 print("Check")
 print(tester.check(1, 1))
+"""
+print("Random")
+temp = tester.find_random_spot()
+print(type(temp))
