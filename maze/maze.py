@@ -10,7 +10,6 @@ class Maze:
         self._layout = []
         with open(input_file, "r") as in_file:
             self._layout = in_file.read().split("\n")
-        print(self._layout)
 
     def check(self, line, col):
         """
@@ -21,9 +20,7 @@ class Maze:
         """
 
         """ nestedlist[line] by nestedlist[column] is a space (True) or and X (False) """
-#        print(self._layout[line])
-#        print(self._layout[line][col])
-        if self._layout[line][col] == " ":
+        if self._layout[line-1][col-1] == " ":      #Assuming the index we pass in starts at 1
             return True
         else:
             return False
@@ -43,26 +40,25 @@ class Maze:
         finds a random empty space in the maze
         code documentation
         """
-        line = random.randint(0, len(self._layout)-1)
-        print(line)
-        tile = "Here"
+        has_spot = False
+        while has_spot == False:        # Checks there's a space in the line
+            line = random.randint(0, len(self._layout)-1) 
+            if " " in self._layout[line]:
+                has_spot = True
+        tile = "x"
         while tile != " ":
             col = random.randint(0, len(self._layout[line])-1)
-            print(col)
             tile = self._layout[line][col]
-            print(f"tile: {tile}")
-        print(line, col, tile)
-        return line, col #This returns index, so it's line/col number -1
+        return line, col                #This returns index, so it's line/col number -1
 
-
+"""
 #Tests
 tester = Maze("test.txt")
-"""
 print("Display")
 tester.display()
 print("Check")
 print(tester.check(1, 1))
-"""
-print("Random")
+print("Random index:")
 temp = tester.find_random_spot()
-print(type(temp))
+print(temp)
+"""
