@@ -16,12 +16,20 @@ def main():
     window = pygame.display.set_mode((1000, 1000))
     window.set_colorkey((255, 255, 255))
     clock = pygame.time.Clock()
+    arial = pygame.font.SysFont('arial', 45)
 
     maze = Maze("maze.txt")
     player = Player()
+
+    # sprite groups
     walls = pygame.sprite.Group()
     fin = pygame.sprite.Group()
+    items = pygame.sprite.Group()
+
+    # This is for determining item spawn
     invalid_locs = []
+
+    # Placing player, walls and finish
     for y, line in enumerate(maze._layout):
             for x, char in enumerate(line):
                 if char == "x":
@@ -34,9 +42,9 @@ def main():
                     player.rect.y = y*50
                     invalid_locs.append((x,y))    
 
+    # Placing items
     item_list = []
     item_count = 0
-    items = pygame.sprite.Group()
     while item_count < 4:
         loc = maze.find_random_spot()
         if loc not in invalid_locs:
@@ -44,10 +52,13 @@ def main():
             x, y = loc
             items.add(Item(x*50, y*50))
             item_count += 1
+    
+    # Movement cooldown. Currently simply limits movement to button presses
     cd = False
 
-    arial = pygame.font.SysFont('arial', 45)
+    # Number of items the player obtained
     item_get = 0
+
     running = True
     while running:
         window.fill((255, 255, 255))
@@ -79,18 +90,18 @@ def main():
             running = False
 
 
-
+        #draw everything. This stuff should probably be in a view
         text = f"Debug: loc: {invalid_locs}"
         text_surface = arial.render(text, True, (0, 0, 0))
         window.blit(text_surface, (0, 950))
-        #draw everything. This stuff should probably be in a view
-        
+         
         window.blit(player.image, player.rect)
         items.draw(window)
         walls.draw(window)
         fin.draw(window)
         pygame.display.update()
 
+    # Determine if player won
     if item_get == 4:
         print("Win")
     else:
