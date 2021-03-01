@@ -21,27 +21,28 @@ def main():
     player = Player()
     walls = pygame.sprite.Group()
     fin = pygame.sprite.Group()
+    invalid_locs = []
     for y, line in enumerate(maze._layout):
             for x, char in enumerate(line):
                 if char == "x":
                     walls.add(Wall(x*50, y*50))
                 if char == "e":
                     fin.add(Finish(x*50, y*50))
+                    invalid_locs.append((x,y))
                 if char == "p":
                     player.rect.x = x*50
                     player.rect.y = y*50
-    item_locs = []
+                    invalid_locs.append((x,y))    
+
     item_list = []
     item_count = 0
     items = pygame.sprite.Group()
     while item_count < 4:
         loc = maze.find_random_spot()
-        if loc not in item_locs:
-            
-            item_locs.append(loc)
+        if loc not in invalid_locs:
+            invalid_locs.append(loc)
             x, y = loc
-            new_item = Item(x*50, y*50)
-            items.add(new_item)
+            items.add(Item(x*50, y*50))
             item_count += 1
     cd = False
 
@@ -77,7 +78,9 @@ def main():
         if pygame.sprite.spritecollide(player, fin, dokill=True):
             running = False
 
-        text = f"Debug: {cd}, also Items obtained: {item_get}"
+
+
+        text = f"Debug: loc: {invalid_locs}"
         text_surface = arial.render(text, True, (0, 0, 0))
         window.blit(text_surface, (0, 950))
         #draw everything. This stuff should probably be in a view
