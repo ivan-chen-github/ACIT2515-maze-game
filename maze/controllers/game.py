@@ -59,50 +59,27 @@ class GameController():
         self.place_items()
 
         cd = False
+        commands = PlayerController(self._player, self._maze, clock)
+
         running = True
         while running:
-            clock.tick(60)
-
+            time = clock.tick(60)
             for event in pygame.event.get():
                 #Click X to quit
                 if event.type == pygame.locals.QUIT:
                     running = False
-
-            commands = PlayerController(self._player, self._maze, cd)
-            commands.get_input(cd)
-
-            """
-            keys = pygame.key.get_pressed()
-            if keys[pygame.locals.K_RIGHT] and cd is False:
-                player.rect.x = min(player.rect.x + 50, 1000)
-                cd = True
-            elif keys[pygame.locals.K_LEFT]  and cd is False:
-                player.rect.x = max(player.rect.x - 50, 0)
-                cd = True
-            elif keys[pygame.locals.K_UP] and cd is False:
-                player.rect.y = max(player.rect.y - 50, 0)
-                cd = True
-            elif keys[pygame.locals.K_DOWN] and cd == False:
-                player.rect.y = min(player.rect.y + 50, 1000)
-                cd = True
-            """
+                if event.type == pygame.KEYUP:
+                    commands._cd = False
             
-            
+            commands.get_input(time)
+
             if pygame.sprite.spritecollide(self._player, self._items, dokill=True):
                 self._player._backpack += 1
             if pygame.sprite.spritecollide(self._player, self._fin, dokill=True):
                 running = False
-            
-            
+
             display = GameView(self._walls, self._fin, self._items, self._player)
             display.draw_map()
-        #    window.blit(player.image, player.rect)
-
-            """
-            GameController.draw_map()
-            PlayerController.draw_map()
-            pygame.display.update()
-            """
 
         if self._player._backpack == 4:
             print("Win")
