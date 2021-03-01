@@ -19,15 +19,12 @@ def main():
 
     maze = Maze("maze.txt")
     player = Player()
-    wall_list = []
     walls = pygame.sprite.Group()
     fin = pygame.sprite.Group()
     for y, line in enumerate(maze._layout):
             for x, char in enumerate(line):
                 if char == "x":
                     walls.add(Wall(x*50, y*50))
-#                    new_wall = Wall(x*50, y*50)
-#                    wall_list.append(new_wall)
                 if char == "e":
                     fin.add(Finish(x*50, y*50))
                 if char == "p":
@@ -45,7 +42,6 @@ def main():
             x, y = loc
             new_item = Item(x*50, y*50)
             items.add(new_item)
-            item_list.append(new_item)
             item_count += 1
     cd = False
 
@@ -75,36 +71,26 @@ def main():
             player.rect.y = max(player.rect.y + 50, 0)
             cd = True
 
-
         
         if pygame.sprite.spritecollide(player, items, dokill=True):
             item_get +=1
-        if pygame.sprite.spritecollide(player, fin, dokill=True) and item_get == 4:
-            win = True
-            running = False
-        elif pygame.sprite.spritecollide(player, fin, dokill=True):
-            win = False
+        if pygame.sprite.spritecollide(player, fin, dokill=True):
             running = False
 
         text = f"Debug: {cd}, also Items obtained: {item_get}"
         text_surface = arial.render(text, True, (0, 0, 0))
         window.blit(text_surface, (0, 950))
         #draw everything. This stuff should probably be in a view
-
         
         window.blit(player.image, player.rect)
-#        window.blit(finish.image, finish.rect)
-#        for item in item_list:
-#            window.blit(item.image, item.rect)
         items.draw(window)
         walls.draw(window)
         fin.draw(window)
-#        for wall in wall_list:
-#            window.blit(wall.image, wall.rect)
         pygame.display.update()
-    if win == True:
+
+    if item_get == 4:
         print("Win")
-    elif win == False:
+    else:
         print("Lose")
 
 if __name__ == "__main__":
