@@ -12,7 +12,8 @@ class Maze:
             self._layout = in_file.read().split("\n")
     """
     def check(self, line, col):
-        
+        # Old checker method
+
         finds empty space or wall based on line number and column number
         param line: description here
         param column: description here
@@ -37,7 +38,7 @@ class Maze:
 
         nestedlist[line] by nestedlist[column] is a space (True) or and X (False) 
         """
-        if self._layout[line][col] == "x":      #Assuming we start counting from 0
+        if self._layout[line][col] == "x":      #Assuming we start counting from 0 
             return False
         else:
             return True
@@ -66,7 +67,7 @@ class Maze:
         while tile != " ":
             col = random.randint(0, len(self._layout[line])-1)
             tile = self._layout[line][col]
-        return line, col                #This returns index, so it's line/col number -1
+        return col, line                #This returns index, so it's line/col number -1
     
     def is_item(self):
         pass
