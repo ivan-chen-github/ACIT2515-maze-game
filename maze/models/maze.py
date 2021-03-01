@@ -1,12 +1,13 @@
 import random
 
 class Maze:
+    """ Initializes the maze by creating a list with and read the maze.txt file
+        
+        param layout: creates a empty list and puts the maze in layout when reading maze.txt
+        type: list
+        
+        """
     def __init__(self, input_file):
-        """
-        code documentation goes here
-        """
-
-        """ function that reads maze.txt and creates nested list? """
         self._layout = []
         with open(input_file, "r") as in_file:
             self._layout = in_file.read().split("\n")
@@ -15,10 +16,15 @@ class Maze:
         # Old checker method
 
         finds empty space or wall based on line number and column number
-        param line: description here
-        param column: description here
-        return: coordinates (line number, column number)
         
+        param line: is the list that you are selecting from self._layout
+        type: int
+        
+        param col: is the index you want from line
+        type: int
+        
+        return line, col: the coordinates to find the an empty space
+        rtype: int, int
 
         nestedlist[line] by nestedlist[column] is a space (True) or and X (False) 
 
@@ -31,12 +37,16 @@ class Maze:
     def can_move_to(self, line, col):
         """
         finds empty space or wall based on line number and column number
-        param line: description here
-        param column: description here
-        return: coordinates (line number, column number)
         
-
-        nestedlist[line] by nestedlist[column] is a space (True) or and X (False) 
+        param line: is the list that you are selecting from self._layout
+        type: int
+        
+        param col: is the index you want from line
+        type: int
+        
+        return: True or False, returns false if there is a "x" located at those coordinates, if there is a " " then returns True as it is empty
+        rtype: bool
+        
         """
         line = int(line)
         col = int(col)
@@ -51,17 +61,18 @@ class Maze:
     def display(self):
         """
         displays the maze
-        code documentation
         """
 
-        """ for line in nestedlist, for i in line, print i """
+        # -- for line in nestedlist, for i in line, print i
         for line in self._layout:
             print(line)
 
     def find_random_spot(self):
         """
         finds a random empty space in the maze
-        code documentation
+        
+        return col, line: the coordinates to find a random empty spot in the maze
+        rtype: int, int
         """
         has_spot = False
         while has_spot == False:        # Checks there's a space in the line
@@ -78,6 +89,19 @@ class Maze:
         pass
 
     def is_exit(self, line, col):
+    """ 
+    Exits the game if it the coordinates at line, col are equal to 'e'
+    
+    param line: is the list that you are selecting from self._layout
+    type: int
+        
+    param col: is the index you want from line
+    type: int
+        
+    return True or False: True if you are at the coordinates with 'e', False if you are not at the coordinates 'e'
+    rtype: bool
+
+    """
         if self._layout[line][col] == "e":
             return True
         else:
