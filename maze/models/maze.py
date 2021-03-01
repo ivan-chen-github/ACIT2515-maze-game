@@ -89,19 +89,19 @@ class Maze:
         pass
 
     def is_exit(self, line, col):
-    """ 
-    Exits the game if it the coordinates at line, col are equal to 'e'
-    
-    param line: is the list that you are selecting from self._layout
-    type: int
+        """ 
+        Exits the game if it the coordinates at line, col are equal to 'e'
         
-    param col: is the index you want from line
-    type: int
-        
-    return True or False: True if you are at the coordinates with 'e', False if you are not at the coordinates 'e'
-    rtype: bool
+        param line: is the list that you are selecting from self._layout
+        type: int
+            
+        param col: is the index you want from line
+        type: int
+            
+        return True or False: True if you are at the coordinates with 'e', False if you are not at the coordinates 'e'
+        rtype: bool
 
-    """
+        """
         if self._layout[line][col] == "e":
             return True
         else:

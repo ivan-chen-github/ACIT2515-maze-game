@@ -68,6 +68,9 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.KEYUP:
                 cd = False
+            #Click X to quit
+            if event.type == pygame.locals.QUIT:
+                running = False
 
         keys = pygame.key.get_pressed()
         if keys[pygame.locals.K_RIGHT] and cd == False and maze.can_move_to(player.rect.y/50, (player.rect.x+50)/50):
@@ -88,7 +91,6 @@ def main():
             item_get +=1
         if pygame.sprite.spritecollide(player, fin, dokill=True):
             running = False
-
 
         #draw everything. This stuff should probably be in a view
         text = f"Debug: loc: {invalid_locs}"
