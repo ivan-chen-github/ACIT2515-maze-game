@@ -5,6 +5,7 @@ from models.tiles import Item
 from models.tiles import Finish
 from models.tiles import Wall
 from models.maze import Maze
+import time
 
 def main():
     """
@@ -41,9 +42,9 @@ def main():
             new_item = Item(x*50, y*50)
             item_list.append(new_item)
             items += 1
-    
+    cd = False
 
-    arial = pygame.font.SysFont('arial', 18)
+    arial = pygame.font.SysFont('arial', 45)
 
     running = True
     while running:
@@ -51,24 +52,28 @@ def main():
 
         clock.tick(60)
 
-        text = f"wall_list length: ${item_locs}"
-        text_surface = arial.render(text, True, (0, 0, 0))
-        window.blit(text_surface, (0, 950))
-
         for event in pygame.event.get():
-            if event.type == pygame.locals.QUIT:
-                running = False
-            elif event.type == pygame.locals.KEYDOWN:
-                if event.key in (pygame.locals.K_ESCAPE, pygame.locals.K_q):
-                    running = False
+            if event.type == pygame.KEYUP:
+                cd = False
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.locals.K_RIGHT]:
-            #-- move the player right by 20 pixels
-            player.rect.x = min(player.rect.x + 10, 400)
-        elif keys[pygame.locals.K_LEFT]:
-            #-- move the player left by 20 pixels
-            player.rect.x = max(player.rect.x - 10, 0)
+        if keys[pygame.locals.K_RIGHT] and cd == False and maze.can_move_to(player.rect.y/50, (player.rect.x+50)/50):
+            player.rect.x = min(player.rect.x + 50, 1000)
+            cd = True
+        elif keys[pygame.locals.K_LEFT]  and cd == False and maze.can_move_to(player.rect.y/50, (player.rect.x-50)/50):
+            player.rect.x = max(player.rect.x - 50, 0)
+            cd = True
+        elif keys[pygame.locals.K_UP] and cd == False and maze.can_move_to((player.rect.y-50)/50, player.rect.x/50):
+            player.rect.y = max(player.rect.y - 50, 0)
+            cd = True
+        elif keys[pygame.locals.K_DOWN] and cd == False and maze.can_move_to((player.rect.y+50)/50, player.rect.x/50):
+            player.rect.y = max(player.rect.y + 50, 0)
+            cd = True
+
+
+        text = f"Debug: {cd}"
+        text_surface = arial.render(text, True, (0, 0, 0))
+        window.blit(text_surface, (0, 950))
 
         #draw everything. This stuff should probably be in a view
         window.blit(player.image, player.rect)

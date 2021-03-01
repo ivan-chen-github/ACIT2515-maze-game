@@ -38,10 +38,15 @@ class Maze:
 
         nestedlist[line] by nestedlist[column] is a space (True) or and X (False) 
         """
-        if self._layout[line][col] == "x":      #Assuming we start counting from 0 
+        line = int(line)
+        col = int(col)
+        try:
+            if self._layout[line][col] == "x":      #Assuming we start counting from 0 
+                return False
+            else:
+                return True
+        except IndexError:
             return False
-        else:
-            return True
 
     def display(self):
         """
