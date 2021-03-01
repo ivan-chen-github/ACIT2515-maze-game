@@ -10,6 +10,8 @@ from views.game import GameView
 
 
 class GameController():
+    TILE_PX = 50
+
     def __init__(self):
         self._maze = Maze("maze.txt")
         self._invalid_locs = []
@@ -23,13 +25,13 @@ class GameController():
         for y, line in enumerate(self._maze._layout):
             for x, char in enumerate(line):
                 if char == "x":
-                    self._walls.add(Wall(x*50, y*50))
+                    self._walls.add(Wall(x*self.TILE_PX, y*self.TILE_PX))
                 if char == "e":
-                    self._fin.add(Finish(x*50, y*50))
+                    self._fin.add(Finish(x*self.TILE_PX, y*self.TILE_PX))
                     self._invalid_locs.append((x,y))
                 if char == "p":
-                    self._player.rect.x = x*50
-                    self._player.rect.y = y*50
+                    self._player.rect.x = x*self.TILE_PX
+                    self._player.rect.y = y*self.TILE_PX
                     self._invalid_locs.append((x,y))   
                 
 
@@ -41,11 +43,8 @@ class GameController():
             if loc not in self._invalid_locs:
                 self._invalid_locs.append(loc)
                 x, y = loc
-                self._items.add(Item(x*50, y*50))
+                self._items.add(Item(x*self.TILE_PX, y*self.TILE_PX))
                 item_count += 1
-                print(f"Items created: {item_count}. Location: {loc}")
-        print(self._invalid_locs)
-
 
     def run(self):
 
@@ -56,7 +55,7 @@ class GameController():
         self.place_items()
 
         cd = False
-        commands = PlayerController(self._player, self._maze, clock)
+        commands = PlayerController(self._player, self._maze)
 
         running = True
         while running:

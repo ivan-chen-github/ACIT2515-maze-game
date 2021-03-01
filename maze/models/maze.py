@@ -62,8 +62,6 @@ class Maze:
         """
         displays the maze
         """
-
-        # -- for line in nestedlist, for i in line, print i
         for line in self._layout:
             print(line)
 
@@ -92,7 +90,7 @@ class Maze:
         """ 
         Exits the game if it the coordinates at line, col are equal to 'e'
         
-        param line: is the list that you are selecting from self._layout
+        param line: is the list index that you are selecting from self._layout
         type: int
             
         param col: is the index you want from line
@@ -106,16 +104,3 @@ class Maze:
             return True
         else:
             return False
-
-
-#Tests
-"""
-tester = Maze("maze.txt")
-print("Display")
-tester.display()
-print("Check")
-print(tester.check(1, 1))
-print("Random index:")
-temp = tester.find_random_spot()
-print(temp)
-"""
