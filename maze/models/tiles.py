@@ -2,6 +2,16 @@ import pygame
 
 # Trying to see if I can make everything under this inherit from Tile class
 class Tile(pygame.sprite.Sprite):
+    """
+    Tile is the class the represent a square in the game
+
+    param x: x is the coordinate that it will be placed in the game 
+    Type: int
+
+    param y: y is the coordinate that it will place a tile on the y axis in the game
+    Type: int
+
+    """
     def __init__(self, x, y):
         super().__init__()
         self.image = pygame.image.load('assets/placeholder.png')
@@ -10,17 +20,47 @@ class Tile(pygame.sprite.Sprite):
         self.rect.y = y
 
 class Item(Tile):
+    """
+    Item will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
+
+    param x: x is the coordinate that it will be placed in the game 
+    Type: int
+
+    param y: y is the coordinate that it will place a tile on the y axis in the game
+    Type: int
+    
+    """
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self.image = pygame.image.load('assets/item.png')  
+        super().__init__(x, y) #-- sets the value x,y value in parent class Tile
+        self.image = pygame.image.load('assets/item.png')  #--loads the item image
 
 class Wall(Tile):
+    """
+    Wall will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
+
+    param x: x is the coordinate that it will be placed in the game 
+    Type: int
+
+    param y: y is the coordinate that it will place a tile on the y axis in the game
+    Type: int
+    
+    """
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self.image = pygame.image.load('assets/wall.png')
+        super().__init__(x, y)#-- sets the value x,y value in parent class Tile
+        self.image = pygame.image.load('assets/wall.png')#--loads the item image
 
 class Finish(Tile):
+    """
+    Finish will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
+
+    param x: x is the coordinate that it will be placed in the game 
+    Type: int
+
+    param y: y is the coordinate that it will place a tile on the y axis in the game
+    Type: int
+    
+    """
     def __init__(self, x, y):
-        super().__init__(x, y)
-        self.image = pygame.image.load('assets/exit.png')
+        super().__init__(x, y)#-- sets the value x,y value in parent class Tile
+        self.image = pygame.image.load('assets/exit.png')#--loads the item image
         
