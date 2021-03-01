@@ -13,7 +13,7 @@ class GameView():
         self._window.set_colorkey((255, 255, 255))
 
     def draw_map(self):
-        self._window.fill((255, 255, 255))
+        self._window.fill((50, 25, 0))
 
         text = f"Debug: Items obtained: {self._player._backpack}"
         text_surface = self._arial.render(text, True, (0, 0, 0))

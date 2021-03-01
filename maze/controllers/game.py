@@ -50,9 +50,6 @@ class GameController():
     def run(self):
 
         pygame.init()
-
-        window = pygame.display.set_mode((1000, 1000))
-        window.set_colorkey((255, 255, 255))
         clock = pygame.time.Clock()
 
         self.create_world()
