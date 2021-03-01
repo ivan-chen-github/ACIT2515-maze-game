@@ -79,7 +79,8 @@ class Maze:
 
 
 #Tests
-tester = Maze("test.txt")
+"""
+tester = Maze("maze.txt")
 print("Display")
 tester.display()
 print("Check")
@@ -87,3 +88,4 @@ print(tester.check(1, 1))
 print("Random index:")
 temp = tester.find_random_spot()
 print(temp)
+"""
