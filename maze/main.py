@@ -16,35 +16,48 @@ def main():
     window = pygame.display.set_mode((1000, 1000))
     window.set_colorkey((255, 255, 255))
     clock = pygame.time.Clock()
+    arial = pygame.font.SysFont('arial', 45)
 
     maze = Maze("maze.txt")
     player = Player()
-    wall_list = []
+
+    # sprite groups
+    walls = pygame.sprite.Group()
+    fin = pygame.sprite.Group()
+    items = pygame.sprite.Group()
+
+    # This is for determining item spawn
+    invalid_locs = []
+
+    # Placing player, walls and finish
     for y, line in enumerate(maze._layout):
             for x, char in enumerate(line):
                 if char == "x":
-                    new_wall = Wall(x*50, y*50)
-                    wall_list.append(new_wall)
+                    walls.add(Wall(x*50, y*50))
                 if char == "e":
-                    finish = Finish(x*50, y*50)
+                    fin.add(Finish(x*50, y*50))
+                    invalid_locs.append((x,y))
                 if char == "p":
                     player.rect.x = x*50
                     player.rect.y = y*50
-    item_locs = []
+                    invalid_locs.append((x,y))    
+
+    # Placing items
     item_list = []
-    items = 0
-    while items < 4:
+    item_count = 0
+    while item_count < 4:
         loc = maze.find_random_spot()
-        if loc not in item_locs:
-            
-            item_locs.append(loc)
+        if loc not in invalid_locs:
+            invalid_locs.append(loc)
             x, y = loc
-            new_item = Item(x*50, y*50)
-            item_list.append(new_item)
-            items += 1
+            items.add(Item(x*50, y*50))
+            item_count += 1
+    
+    # Movement cooldown. Currently simply limits movement to button presses
     cd = False
 
-    arial = pygame.font.SysFont('arial', 45)
+    # Number of items the player obtained
+    item_get = 0
 
     running = True
     while running:
@@ -70,19 +83,29 @@ def main():
             player.rect.y = max(player.rect.y + 50, 0)
             cd = True
 
+        
+        if pygame.sprite.spritecollide(player, items, dokill=True):
+            item_get +=1
+        if pygame.sprite.spritecollide(player, fin, dokill=True):
+            running = False
 
-        text = f"Debug: {cd}"
-        text_surface = arial.render(text, True, (0, 0, 0))
-        window.blit(text_surface, (0, 950))
 
         #draw everything. This stuff should probably be in a view
+        text = f"Debug: loc: {invalid_locs}"
+        text_surface = arial.render(text, True, (0, 0, 0))
+        window.blit(text_surface, (0, 950))
+         
         window.blit(player.image, player.rect)
-        window.blit(finish.image, finish.rect)
-        for item in item_list:
-            window.blit(item.image, item.rect)
-        for wall in wall_list:
-            window.blit(wall.image, wall.rect)
+        items.draw(window)
+        walls.draw(window)
+        fin.draw(window)
         pygame.display.update()
+
+    # Determine if player won
+    if item_get == 4:
+        print("Win")
+    else:
+        print("Lose")
 
 if __name__ == "__main__":
     main()
