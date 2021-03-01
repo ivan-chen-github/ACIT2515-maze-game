@@ -5,7 +5,6 @@ from models.tiles import Item
 from models.tiles import Finish
 from models.tiles import Wall
 from models.maze import Maze
-import time
 
 def main():
     """
@@ -57,7 +56,7 @@ def main():
     cd = False
 
     # Number of items the player obtained
-    item_get = 0
+#    item_get = 0
 
     running = True
     while running:
@@ -70,22 +69,22 @@ def main():
                 cd = False
 
         keys = pygame.key.get_pressed()
-        if keys[pygame.locals.K_RIGHT] and cd == False and maze.can_move_to(player.rect.y/50, (player.rect.x+50)/50):
+        if keys[pygame.locals.K_RIGHT] and cd is False and maze.can_move_to((player.rect.x+50)/50, player.rect.y/50):
             player.rect.x = min(player.rect.x + 50, 1000)
             cd = True
-        elif keys[pygame.locals.K_LEFT]  and cd == False and maze.can_move_to(player.rect.y/50, (player.rect.x-50)/50):
+        elif keys[pygame.locals.K_LEFT]  and cd is False and maze.can_move_to((player.rect.x-50)/50, player.rect.y/50):
             player.rect.x = max(player.rect.x - 50, 0)
             cd = True
-        elif keys[pygame.locals.K_UP] and cd == False and maze.can_move_to((player.rect.y-50)/50, player.rect.x/50):
+        elif keys[pygame.locals.K_UP] and cd is False and maze.can_move_to(player.rect.x/50, (player.rect.y-50)/50):
             player.rect.y = max(player.rect.y - 50, 0)
             cd = True
-        elif keys[pygame.locals.K_DOWN] and cd == False and maze.can_move_to((player.rect.y+50)/50, player.rect.x/50):
-            player.rect.y = max(player.rect.y + 50, 0)
+        elif keys[pygame.locals.K_DOWN] and cd == False and maze.can_move_to(player.rect.x/50, (player.rect.y+50)/50):
+            player.rect.y = min(player.rect.y + 50, 1000)
             cd = True
 
         
         if pygame.sprite.spritecollide(player, items, dokill=True):
-            item_get +=1
+            player._backpack += 1
         if pygame.sprite.spritecollide(player, fin, dokill=True):
             running = False
 
@@ -102,7 +101,7 @@ def main():
         pygame.display.update()
 
     # Determine if player won
-    if item_get == 4:
+    if player._backpack == 4:
         print("Win")
     else:
         print("Lose")

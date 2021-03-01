@@ -28,7 +28,7 @@ class Maze:
             return False
     """
 
-    def can_move_to(self, line, col):
+    def can_move_to(self, col, line):
         """
         finds empty space or wall based on line number and column number
         param line: description here
@@ -38,8 +38,8 @@ class Maze:
 
         nestedlist[line] by nestedlist[column] is a space (True) or and X (False) 
         """
-        line = int(line)
         col = int(col)
+        line = int(line)
         try:
             if self._layout[line][col] == "x":      #Assuming we start counting from 0 
                 return False

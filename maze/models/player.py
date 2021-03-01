@@ -8,4 +8,5 @@ class Player(pygame.sprite.Sprite):
         # Temporarily placing player at top left
         self.rect.x = 0
         self.rect.y = 0
+        self._backpack = 0
         
