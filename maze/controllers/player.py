@@ -1,12 +1,10 @@
 import pygame
 from models.player import Player
 from models.maze import Maze
-from views.player import PlayerView
 
 class PlayerController():
     def __init__(self, player, maze, cd):
         self._player = player
-        self._view = PlayerView(self._player)
         self._maze = maze
         self._cd = cd
 

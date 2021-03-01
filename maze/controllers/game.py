@@ -7,7 +7,7 @@ from models.tiles import Wall
 from models.player import Player
 from controllers.player import PlayerController
 from views.game import GameView
-from views.player import PlayerView
+
 
 class GameController():
     def __init__(self):
