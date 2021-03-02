@@ -37,17 +37,17 @@ assignment_demo
          |-game.py                                                                                   
 
 
-Required Libraries:
+Required Libraries:                                                                                  
 Since this game relies on Pygame modules, Pygame must be installed to run the game. Pygame can be
 installed using the command "pip install pygame" in the terminal.
 
 
-Running the game:
+Running the game:                                                                                    
 To run the game, browse to the "assignment_demo\maze" folder and run the command "python main.py"
 in the terminal.
 
 
-Game Controls:
+Game Controls:                                                                                         
 Moving the sprite - Arrow Keys
 Collecting items  - Move the sprite on top of the item to collect it
 Exiting the game  - Collect the Heart item to exit the game or click the X
