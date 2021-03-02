@@ -14,6 +14,7 @@ Brandley Gee    - Code Documentation and App Programming
 Arshia Aryanfar - App Programming and Data Handling                                                      
 Edward To       - Project Management and Asset Preparation                                              
 
+
 Project Structure:                                                                                   
 assignment_demo                                                                                         
 |-README.md                                                                                        
@@ -43,14 +44,18 @@ installed using the command "pip install pygame" in the terminal.
 
 
 Running the game:                                                                                    
-To run the game, browse to the "assignment_demo\maze" folder and run the command "python main.py"
-in the terminal.
+To run the game, navigate to the "assignment_demo\maze" directory and run the command "python main.py"
+in the terminal. 
+The maze layout is defined in "maze.txt" in the same directory. Walls are represented by "x", pathways
+by " ", the player's starting location by "p", and the exit by "e".
 
 
 Game Controls:                                                                                         
-Moving the sprite - Arrow Keys
-Collecting items  - Move the sprite on top of the item to collect it
-Exiting the game  - Collect the Heart item to exit the game or click the X
+Moving the sprite 	- Use the arrow keys to move the player sprite.
+Collecting items  	- Move the sprite on top of an item to collect it.
+Winning the game 	- Win by collecting all 4 items (Jewels) before reaching the exit (heart). 
+					  Reaching the exit without collecting all the items will result in a loss.
+Exiting the game  	- Reach the Heart item to exit the game or click the X
 
 
 
