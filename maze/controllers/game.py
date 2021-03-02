@@ -20,7 +20,7 @@ class GameController():
 
     def __init__(self):
         self._maze = Maze("maze.txt") #-- creates a maze object, and loads the maze outline
-        self._invalid_locs = [] #-- empty list to append whent there is a empty spot or is where the play is
+        self._invalid_locs = [] #-- list of places an item can be placed. Can not be on player, exit, or another item.
         self._items = pygame.sprite.Group() # -- create items in sprite group
         self._walls = pygame.sprite.Group() # -- create items in sprite group
         self._fin = pygame.sprite.Group() # -- create items in sprite group
@@ -31,12 +31,12 @@ class GameController():
         """ creates the maze by adding the walls, the player, and the finish """
         for y, line in enumerate(self._maze._layout): #--loops through the lines in the maze
             for x, char in enumerate(line):  #-- loops throught the chars in the line
-                if char == "x": #-- if it is an "x" then add the wall
+                if char == "x": #-- if it is an "x" then add the wall at the location
                     self._walls.add(Wall(x*self.TILE_PX, y*self.TILE_PX))
-                if char == "e": #-- if it is an "e" add the finish
+                if char == "e": #-- if it is an "e" add the exit at the location
                     self._fin.add(Finish(x*self.TILE_PX, y*self.TILE_PX))
                     self._invalid_locs.append((x,y))
-                if char == "p": #-- if it is a p add the player
+                if char == "p": #-- if it is a p add the player at the location
                     self._player.rect.x = x*self.TILE_PX
                     self._player.rect.y = y*self.TILE_PX
                     self._invalid_locs.append((x,y))   
@@ -48,8 +48,8 @@ class GameController():
         item_count = 0
         while item_count < 4: #-- makes sure that there are four items in the maze
             loc = self._maze.find_random_spot() #-- finds the random spot
-            if loc not in self._invalid_locs:  #-- makes sure it is valid
-                self._invalid_locs.append(loc)
+            if loc not in self._invalid_locs:  #-- checks the item doesn't spawn on the play, exit, or another item
+                self._invalid_locs.append(loc) #-- marks the location as invalid for next item spawn
                 x, y = loc
                 self._items.add(Item(x*self.TILE_PX, y*self.TILE_PX)) #-- adds the item to the maze
                 item_count += 1
@@ -77,7 +77,7 @@ class GameController():
                 if event.type == pygame.locals.QUIT:
                     running = False
                 if event.type == pygame.KEYUP:
-                    commands._cd = False
+                    commands._cd = False    #-- sets removes movement cooldown every time the key is released
             
             commands.get_input(time)
 
@@ -90,7 +90,7 @@ class GameController():
             display.draw_map()#-- displays the maze and player
 
         if self._player._backpack == 4: #-- if the backpack has four in it, then you win
-            print("Win")
+            print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
         else:
-            print("Lose")
+            print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
 

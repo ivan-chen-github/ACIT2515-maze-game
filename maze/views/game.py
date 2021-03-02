@@ -26,14 +26,14 @@ class GameView():
         self._fin = fin
         self._items = items
         self._player = player
-        self._window = pygame.display.set_mode((1000, 1050)) #-- is the size of the screen for the maze
+        self._window = pygame.display.set_mode((1000, 550)) #-- is the size of the screen for the maze. currently assumes 20 tiles across and 10 tiles down.
         self._window.set_colorkey((255, 255, 255)) #-- sets the transparency
 
     def draw_map(self):
         self._window.fill((50, 25, 0))#-- fills the surface of the game
         text = f"Items obtained: {self._player._backpack}"
         text_surface = self._arial.render(text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
-        self._window.blit(text_surface, (0, 1000)) #-- displays the message
+        self._window.blit(text_surface, (0, 500)) #-- displays the message
 
         #-- draws the objects onto self._window
         self._window.blit(self._player.image, self._player.rect)

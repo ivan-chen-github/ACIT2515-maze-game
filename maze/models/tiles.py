@@ -56,8 +56,8 @@ class Finish(Tile):
     param x: x is the coordinate that it will be placed in the game 
     Type: int
 
-    param y: y is the coordinate that it will place a tile on the y axis in the game
-    Type: int
+    :param y: y is the coordinate that it will place a tile on the y axis in the game
+    :type y: int
     
     """
     def __init__(self, x, y):

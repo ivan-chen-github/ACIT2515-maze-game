@@ -3,25 +3,30 @@ from models.maze import Maze
 
 class PlayerController():
 
-    TILE_PX = 50
+    TILE_PX = 50 #-- width/height of a tile
     
     def __init__(self, player, maze):
         """
         Intializes the controller for the player, so you are able to move the player
 
-        param player: is the play that is in the game
-        type: Player()
+        :param player: is the play that is in the game
+        :type player: Player
 
-        paramm maze: is the maze that the player will be in
-        type: Maze()
+        :param maze: is the maze that the player will be in
+        :type maze: Maze
         """
         self._player = player
         self._maze = maze
-        self._cd = False
-        self._diff = 0
+        self._cd = False    #-- cooldown. if true, player can not move
+        self._diff = 0  #-- time since player's previous move
 
     def get_input(self, time):
-        """ gets the input from the user, move the player """
+        """ 
+        gets the input from the user, move the player if not on cooldown.
+        
+        :param time: milliseconds since the last time clock.tick() was called.
+        :type time: int
+        """
         if self._cd is True: #-- cd is True then it will check the time
             self.check_cd(time)
         keys = pygame.key.get_pressed() #-- the keys that press
@@ -43,13 +48,20 @@ class PlayerController():
 
 
     def set_cd(self):
-        """sets a cooldown and sets diff back to zero  """
+        """
+        sets a movement cooldown and sets diff back to zero  
+        """
         self._diff = 0
         self._cd = True
         
 
     def check_cd(self, time):  
-        """checks the cooldown"""
+        """
+        Checks if 1 second has passed since the player's previous move
+        
+        :param time: milliseconds since the last time clock.tick() was called.
+        :type time: int
+        """
         self._diff += time
         if self._diff >= 1000:
             self._diff = 0
