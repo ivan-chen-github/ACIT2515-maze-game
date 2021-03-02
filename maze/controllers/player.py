@@ -22,7 +22,7 @@ class PlayerController():
 
     def get_input(self, time):
         """ gets the input from the user, move the player """
-        if self._cd is True:
+        if self._cd is True: #-- cd is True then it will check the time
             self.check_cd(time)
         keys = pygame.key.get_pressed() #-- the keys that press
         if keys[pygame.locals.K_RIGHT] and self._cd is False and self._maze.can_move_to((self._player.rect.x+50)/50, self._player.rect.y/50): #-- checks if the they clicked right and if the player can move in the direction
@@ -43,11 +43,13 @@ class PlayerController():
 
 
     def set_cd(self):
+        """sets a cooldown and sets diff back to zero  """
         self._diff = 0
         self._cd = True
         
 
     def check_cd(self, time):  
+        """checks the cooldown"""
         self._diff += time
         if self._diff >= 1000:
             self._diff = 0
