@@ -8,33 +8,33 @@ on empty coordinates within the maze. The player wins by collecting all four ran
 and then reaching the goal (symbolized by the heart item in the maze).
 
 
-Team Members:                                                                      
-Ivan Chen       - UI and Game Logic Programming
-Brandley Gee    - Code Documentation and App Programming
-Arshia Aryanfar - App Programming and Data Handling
-Edward To       - Project Management and Asset Preparation
+Team Members:                                                                       
+Ivan Chen       - UI and Game Logic Programming                                                       
+Brandley Gee    - Code Documentation and App Programming                                            
+Arshia Aryanfar - App Programming and Data Handling                                                      
+Edward To       - Project Management and Asset Preparation                                              
 
-Project Structure:
-assignment_demo
-|-README.md
-|-documentation
-   |-uml.pdf
-|-maze
-   |-main.py
-   |-maze.txt
-   |-assets
-   |-controllers
-      |-__init__.py
-      |-game.py
-      |-player.py
-   |-models
-      |-__init__.py
-      |-maze.py
-      |-player.py
-      |-tiles.py
-   |-views
-      |-__init__.py
-      |-game.py
+Project Structure:                                                                                   
+assignment_demo                                                                                         
+|-README.md                                                                                        
+|-documentation                                                                                         
+   |-uml.pdf                                                                                            
+|-maze                                                                                                    
+   |-main.py                                                                                               
+   |-maze.txt                                                                                             
+   |-assets                                                                                              
+   |-controllers                                                                                        
+      |-__init__.py                                                                                  
+      |-game.py                                                                                          
+      |-player.py                                                                                    
+   |-models                                                                                           
+      |-__init__.py                                                                                 
+      |-maze.py                                                                                       
+      |-player.py                                                                                   
+      |-tiles.py                                                                                     
+   |-views                                                                                            
+      |-__init__.py                                                                                   
+      |-game.py                                                                                   
 
 
 Required Libraries:
