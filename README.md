@@ -18,23 +18,23 @@ Project Structure:
 assignment_demo                                                                                         
 |-README.md                                                                                        
 |-documentation                                                                                         
-      |-uml.pdf                                                                                            
+|--|-uml.pdf                                                                                            
 |-maze                                                                                                    
-      |-main.py                                                                                               
-      |-maze.txt                                                                                             
-      |-assets                                                                                              
-      |-controllers                                                                                        
-         |-__init__.py                                                                                  
-         |-game.py                                                                                          
-         |-player.py                                                                                    
-      |-models                                                                                           
-         |-__init__.py                                                                                 
-         |-maze.py                                                                                       
-         |-player.py                                                                                   
-         |-tiles.py                                                                                     
-      |-views                                                                                            
-         |-__init__.py                                                                                   
-         |-game.py                                                                                   
+|--|-main.py                                                                                               
+|--|-maze.txt                                                                                             
+|--|-assets                                                                                              
+|--|-controllers                                                                                        
+|----|-__init__.py                                                                                  
+|----|-game.py                                                                                          
+|----|-player.py                                                                                    
+|--|-models                                                                                           
+|----|-__init__.py                                                                                 
+|----|-maze.py                                                                                       
+|----|-player.py                                                                                   
+|----|-tiles.py                                                                                     
+|--|-views                                                                                            
+|----|-__init__.py                                                                                   
+|----|-game.py                                                                                   
 
 
 Required Libraries:                                                                                  
