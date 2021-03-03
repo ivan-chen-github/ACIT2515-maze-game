@@ -53,11 +53,7 @@ by " ", the player's starting location by "p", and the exit by "e".
 Game Controls:                                                                                         
 Moving the sprite 	- Use the arrow keys to move the player sprite.
 Collecting items  	- Move the sprite on top of an item to collect it.
-<<<<<<< HEAD
-Winning the game 	- Win by collecting all 4 items (Jewels) before reaching the exit (door). 
-=======
 Winning the game 	- Win by collecting all 4 items (Jewels) before reaching the exit (Door). 
->>>>>>> 836da2f4fa9a03da816f11c0bc59c127d6228b1c
 					  Reaching the exit without collecting all the items will result in a loss.
 Exiting the game  	- Reach the Door to exit the game or click the X
 
