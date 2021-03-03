@@ -49,12 +49,12 @@ class Wall(Tile):
         super().__init__(x, y)#-- sets the value x,y value in parent class Tile
         self.image = pygame.image.load('assets/wall.png')#--loads the item image
 
-class Finish(Tile):
+class Goal(Tile):
     """
-    Finish will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
+    Goal will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
 
-    param x: x is the coordinate that it will be placed in the game 
-    Type: int
+    :param x: x is the coordinate that it will be placed in the game 
+    type x: int
 
     :param y: y is the coordinate that it will place a tile on the y axis in the game
     :type y: int

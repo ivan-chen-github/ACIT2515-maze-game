@@ -2,7 +2,7 @@ import pygame
 import pygame.locals
 from models.maze import Maze
 from models.tiles import Item
-from models.tiles import Finish
+from models.tiles import Goal
 from models.tiles import Wall
 from models.player import Player
 from controllers.player import PlayerController
@@ -23,18 +23,18 @@ class GameController():
         self._invalid_locs = [] #-- list of places an item can be placed. Can not be on player, exit, or another item.
         self._items = pygame.sprite.Group() # -- create items in sprite group
         self._walls = pygame.sprite.Group() # -- create items in sprite group
-        self._fin = pygame.sprite.Group() # -- create items in sprite group
+        self._goal = pygame.sprite.Group() # -- create items in sprite group
         self._player = Player()# -- creates a player
 
 
     def create_world(self):
-        """ creates the maze by adding the walls, the player, and the finish """
+        """ creates the maze by adding the walls, the player, and the goal """
         for y, line in enumerate(self._maze._layout): #--loops through the lines in the maze
             for x, char in enumerate(line):  #-- loops throught the chars in the line
                 if char == "x": #-- if it is an "x" then add the wall at the location
                     self._walls.add(Wall(x*self.TILE_PX, y*self.TILE_PX))
                 if char == "e": #-- if it is an "e" add the exit at the location
-                    self._fin.add(Finish(x*self.TILE_PX, y*self.TILE_PX))
+                    self._goal.add(Goal(x*self.TILE_PX, y*self.TILE_PX))
                     self._invalid_locs.append((x,y))
                 if char == "p": #-- if it is a p add the player at the location
                     self._player.rect.x = x*self.TILE_PX
@@ -83,10 +83,10 @@ class GameController():
 
             if pygame.sprite.spritecollide(self._player, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player._backpack += 1
-            if pygame.sprite.spritecollide(self._player, self._fin, dokill=True): #-- if the player reaches the end them stop running the game
+            if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end them stop running the game
                 running = False
 
-            display = GameView(self._walls, self._fin, self._items, self._player) 
+            display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
 
         if self._player._backpack == 4: #-- if the backpack has four in it, then you win

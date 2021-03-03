@@ -1,29 +1,29 @@
 import pygame
 
 class GameView():
-    def __init__(self, walls, fin, items, player):
+    def __init__(self, walls, goal, items, player):
         """
         Initializes the Gameview in order to view the maze
         
         param arial: creates the font arial with the font 45
-        type: pygame.font.Font
+        type arial: pygame.font.Font
 
         param walls: the group of walls
-        type: pygame.sprite.Group
+        type walls: pygame.sprite.Group
 
-        param fin:  the group of finish
-        type: pygame.sprite.Group
+        param goal:  the group of goal. It will only have the exit.
+        type goal: pygame.sprite.Group
 
         param items: the group of items
         type: pygame.sprite.Group
 
         param player: is the player in the game
-        type: Player
+        type player: Player
 
         """
         self._arial = pygame.font.SysFont('arial', 45)
         self._walls = walls
-        self._fin = fin
+        self._goal = goal
         self._items = items
         self._player = player
         self._window = pygame.display.set_mode((1000, 550)) #-- is the size of the screen for the maze. currently assumes 20 tiles across and 10 tiles down.
@@ -39,7 +39,7 @@ class GameView():
         self._window.blit(self._player.image, self._player.rect)
         self._items.draw(self._window)
         self._walls.draw(self._window)
-        self._fin.draw(self._window)
+        self._goal.draw(self._window)
 
         #-- updates the display
         pygame.display.update()

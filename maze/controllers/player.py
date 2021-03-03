@@ -18,7 +18,7 @@ class PlayerController():
         self._player = player
         self._maze = maze
         self._cd = False    #-- cooldown. if true, player can not move
-        self._diff = 0  #-- time since player's previous move
+        self._time_passed = 0  #-- time since player's previous move
 
     def get_input(self, time):
         """ 
@@ -27,7 +27,7 @@ class PlayerController():
         :param time: milliseconds since the last time clock.tick() was called.
         :type time: int
         """
-        if self._cd is True: #-- cd is True then it will check the time
+        if self._cd is True: #-- if player is on cooldown then it will check the time
             self.check_cd(time)
         keys = pygame.key.get_pressed() #-- the keys that press
         if keys[pygame.locals.K_RIGHT] and self._cd is False and self._maze.can_move_to((self._player.rect.x+50)/50, self._player.rect.y/50): #-- checks if the they clicked right and if the player can move in the direction
@@ -49,9 +49,9 @@ class PlayerController():
 
     def set_cd(self):
         """
-        sets a movement cooldown and sets diff back to zero  
+        sets a movement cooldown and sets time_passed back to zero  
         """
-        self._diff = 0
+        self._time_passed = 0
         self._cd = True
         
 
@@ -62,7 +62,7 @@ class PlayerController():
         :param time: milliseconds since the last time clock.tick() was called.
         :type time: int
         """
-        self._diff += time
-        if self._diff >= 1000:
-            self._diff = 0
+        self._time_passed += time
+        if self._time_passed >= 1000:
+            self._time_passed = 0
             self._cd = False
