@@ -1,23 +1,18 @@
 import random
 
 class Maze:
-    """ Initializes the maze by creating a list with and read the maze.txt file
-
-    :param input_file: file the maze will be read from
-    :type input_file: str
-
-    :param layout: creates a empty list and puts the maze in layout when reading maze.txt
-    :type layout: list
-    
-    """
     def __init__(self, input_file):
-        self._layout = []
+        """ Initializes the maze by creating a list with and read the maze.txt file
+
+        :param input_file: file the maze will be read from
+        :type input_file: str
+        """
+        self._layout = []   #-- the layout of the maze. Each item in the list represents a row of the maze.
         with open(input_file, "r") as in_file:
             self._layout = in_file.read().split("\n")
 
     def can_move_to(self, col, line):
-        """
-        Checks if the player can move to the given coordinates
+        """ Checks if the player can move to the given coordinates
         
         :param line: index of the list that you are selecting from self._layout. Represents y coordinates.
         :type line: int
@@ -27,7 +22,6 @@ class Maze:
         
         :returns: True if there is a " " at the coordinates. False if there is a "x" at the coordinates 
         :rtype: bool
-
         """
         col = int(col)
         line = int(line)

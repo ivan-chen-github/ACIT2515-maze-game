@@ -17,7 +17,7 @@ class PlayerController():
         """
         self._player = player
         self._maze = maze
-        self._cd = False    #-- cooldown. if true, player can not move
+        self._cd = False    #-- movement cooldown. if true, player can not move
         self._time_passed = 0  #-- time since player's previous move
 
     def get_input(self, time):

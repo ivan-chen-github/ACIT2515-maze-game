@@ -13,6 +13,6 @@ class Player(pygame.sprite.Sprite):
         # --placing player at top left
         self.rect.x = 0
         self.rect.y = 0
-        #-- sets the backpack to 0 as no items are collected
+        #-- number of items collected
         self._backpack = 0
         

@@ -5,11 +5,11 @@ class Tile(pygame.sprite.Sprite):
     """
     Tile is the class the represent a square in the game
 
-    param x: x is the coordinate that it will be placed in the game 
-    Type: int
+    :param x: x is the coordinate that it will be placed in the game 
+    :type x: int
 
-    param y: y is the coordinate that it will place a tile on the y axis in the game
-    Type: int
+    :param y: y is the coordinate that it will place a tile on the y axis in the game
+    :type y: int
 
     """
     def __init__(self, x, y):
@@ -21,13 +21,14 @@ class Tile(pygame.sprite.Sprite):
 
 class Item(Tile):
     """
+    Represents collectable items.
     Item will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
 
-    param x: x is the coordinate that it will be placed in the game 
-    Type: int
+    :param x: x is the coordinate that it will be placed in the game 
+    :type x: int
 
-    param y: y is the coordinate that it will place a tile on the y axis in the game
-    Type: int
+    :param y: y is the coordinate that it will place a tile on the y axis in the game
+    :type y: int
     
     """
     def __init__(self, x, y):
@@ -36,13 +37,14 @@ class Item(Tile):
 
 class Wall(Tile):
     """
+    Represents and impassable wall.
     Wall will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
 
-    param x: x is the coordinate that it will be placed in the game 
-    Type: int
+    :param x: x is the coordinate that it will be placed in the game 
+    :type x: int
 
-    param y: y is the coordinate that it will place a tile on the y axis in the game
-    Type: int
+    :param y: y is the coordinate that it will place a tile on the y axis in the game
+    :type y: int
     
     """
     def __init__(self, x, y):
@@ -51,10 +53,11 @@ class Wall(Tile):
 
 class Goal(Tile):
     """
+    Represents the goal/exit.
     Goal will load the item image in the game, that is placed on coordinate (x,y), inherits attribute from tile
 
     :param x: x is the coordinate that it will be placed in the game 
-    type x: int
+    :type x: int
 
     :param y: y is the coordinate that it will place a tile on the y axis in the game
     :type y: int

@@ -5,20 +5,20 @@ class GameView():
         """
         Initializes the Gameview in order to view the maze
         
-        param arial: creates the font arial with the font 45
-        type arial: pygame.font.Font
+        :param arial: creates the font arial with the font 45
+        :type arial: pygame.font.Font
 
-        param walls: the group of walls
-        type walls: pygame.sprite.Group
+        :param walls: the group of walls
+        :type walls: pygame.sprite.Group
 
-        param goal:  the group of goal. It will only have the exit.
-        type goal: pygame.sprite.Group
+        :param goal:  the group of goal. It will only have the exit.
+        :type goal: pygame.sprite.Group
 
-        param items: the group of items
-        type: pygame.sprite.Group
+        :param items: the group of items
+        :type items: pygame.sprite.Group
 
-        param player: is the player in the game
-        type player: Player
+        :param player: is the player in the game
+        :type player: Player
 
         """
         self._arial = pygame.font.SysFont('arial', 45)

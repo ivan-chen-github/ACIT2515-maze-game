@@ -16,7 +16,7 @@ class GameController():
     Interacts with the player controller
  
     """
-    TILE_PX = 50
+    TILE_PX = 50 #-- width/height of a tile
 
     def __init__(self):
         self._maze = Maze("maze.txt") #-- creates a maze object, and loads the maze outline
@@ -58,7 +58,7 @@ class GameController():
         """ 
         The method that will run the application
 
-        Will run until you reach the end, where it will tell you if you lose or win
+        Will run until you reach the goal, where it will tell you if you lose or win
         """
         pygame.init()
         clock = pygame.time.Clock()
@@ -84,13 +84,11 @@ class GameController():
             if pygame.sprite.spritecollide(self._player, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player._backpack += 1
             if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end them stop running the game
+                if self._player._backpack == 4: #-- if the backpack has four in it, then you win
+                    print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
+                else:
+                    print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
                 running = False
 
             display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
-
-        if self._player._backpack == 4: #-- if the backpack has four in it, then you win
-            print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
-        else:
-            print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
-
