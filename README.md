@@ -5,7 +5,7 @@ This project involves programming a maze-like game using Python and Pygame. The 
 a player controlled sprite (using arrow keys) which can navigate the maze to collect items and 
 reach the goal. The maze structure is generated from a text file and items are randomly placed 
 on empty coordinates within the maze. The player wins by collecting all four randomly placed items
-and then reaching the goal (symbolized by the heart item in the maze).
+and then reaching the goal (symbolized by the Door in the maze).
 
 
 Team Members:                                                                       
@@ -53,9 +53,9 @@ by " ", the player's starting location by "p", and the exit by "e".
 Game Controls:                                                                                         
 Moving the sprite 	- Use the arrow keys to move the player sprite.
 Collecting items  	- Move the sprite on top of an item to collect it.
-Winning the game 	- Win by collecting all 4 items (Jewels) before reaching the exit (heart). 
+Winning the game 	- Win by collecting all 4 items (Jewels) before reaching the exit (Door). 
 					  Reaching the exit without collecting all the items will result in a loss.
-Exiting the game  	- Reach the Heart item to exit the game or click the X
+Exiting the game  	- Reach the Door to exit the game or click the X
 
 
 
