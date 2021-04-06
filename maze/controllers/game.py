@@ -77,7 +77,23 @@ class GameController():
                 if event.type == pygame.locals.QUIT:
                     running = False
                 if event.type == pygame.KEYUP:
-                    commands._cd = False    #-- sets removes movement cooldown every time the key is released
+                    #-- sets removes movement cooldown every time the key is released
+                    if (event.key == pygame.K_UP):
+                        action = "up"
+                        commands._cd[action] = False
+                        commands._time_passed[action] = 0
+                    if (event.key == pygame.K_DOWN):
+                        action = "down"
+                        commands._cd[action] = False
+                        commands._time_passed[action] = 0
+                    if (event.key == pygame.K_LEFT):
+                        action = "left"
+                        commands._cd[action] = False
+                        commands._time_passed[action] = 0
+                    if (event.key == pygame.K_RIGHT):
+                        action = "right"
+                        commands._cd[action] = False
+                        commands._time_passed[action] = 0
             
             commands.get_input(time)
 
