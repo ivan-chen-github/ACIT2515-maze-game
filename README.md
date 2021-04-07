@@ -23,14 +23,14 @@ Project Structure:
 assignment_demo                                                                                         
 |-README.md                                                                                        
 |-documentation                                                                                         
-|---|-uml.pdf
-|-flask
-|---|-app.py
-|---|-scores.json
-|---|-templates
-|------|-index.html
-|---|-models
-|------|-score.py
+|---|-uml.pdf                                                                                                      
+|-flask                                                                                                                  
+|---|-app.py                                                                                                                              
+|---|-scores.json                                                                                                     
+|---|-templates                                                                                               
+|------|-index.html                                                                                                              
+|---|-models                                                                                                     
+|------|-score.py                                                                                                      
 |-maze                                                                                                    
 |---|-main.py                                                                                               
 |---|-maze.txt                                                                                             
@@ -54,7 +54,7 @@ Since this game relies on Pygame modules, Pygame must be installed to run the ga
 installed using the command "pip install pygame" in the terminal. Flask is required to run the web api 
 which hosts the scores on a webpage. Flask can be installed using the command "pip install Flask".
 
-Running the Flask server:
+Running the Flask server:                                                                                      
 To start the server, navigate to the "assignment_demo\flask" directory and run the command "python app.py"
 in the terminal. The web page can be accessed from your browser with the local url http://127.0.0.1:5000
 
