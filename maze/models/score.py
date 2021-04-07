@@ -22,7 +22,7 @@ class Score:
 
         self._player_name = str(player_name)
         self._score = int(score)
-        self._date = datetime.today().strftime('%Y-%m-%d')
+        self._date = datetime.today().strftime('%m-%d %H:%M')
 
 def from_json(self, json_file):
     """ Reads data from JSON file and creates object
