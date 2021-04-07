@@ -120,7 +120,7 @@ class GameController():
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
                     print(f"Final Score: {final_score}")
                 running = False
-            timer = timer - (clock.tick(30)/1000)  
+            timer = timer - (time/1000)  
             if timer <= 0:
                 final_score = 0
                 print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
