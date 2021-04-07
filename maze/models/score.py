@@ -1,9 +1,8 @@
 import json
 from datetime import datetime
-from typing import ByteString
 
 class Score:
-    def __init__(self, player_name, score, date):
+    def __init__(self, player_name, score):
         
         if type(score) is not int:
             raise ValueError("Invalid entry (score must be an integer)")

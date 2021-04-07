@@ -5,7 +5,7 @@ from models.tiles import Item
 from models.tiles import Goal
 from models.tiles import Wall
 from models.player import Player
-from models.score import Score
+from models.score import Score, to_json
 from controllers.player import PlayerController
 from views.game import GameView
 
@@ -80,7 +80,7 @@ class GameController():
                     running = False
 
                 if event.type == pygame.KEYUP:
-                    total_keypress += 1
+                    total_keypress += 1 #-- count number of keypresses
                     #-- sets removes movement cooldown every time the key is released
                     if (event.key == pygame.K_UP):
                         action = "up"
@@ -114,3 +114,6 @@ class GameController():
 
             display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
+
+            final_score = Score('Player', total_keypress)
+            json_fin_score = to_json(final_score)
