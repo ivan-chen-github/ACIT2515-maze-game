@@ -75,6 +75,8 @@ class GameController():
 
         running = True
         total_keypress = 0
+        clock = pygame.time.Clock()
+        timer = 10
         while running:
             time = clock.tick(60) #-- 60 frames at most per second
             for event in pygame.event.get(): #-- gets the input of your keyboard
@@ -118,8 +120,13 @@ class GameController():
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
                     print(f"Final Score: {final_score}")
                 running = False
-
-            display = GameView(self._walls, self._goal, self._items, self._player) 
+            timer = timer - (clock.tick(30)/1000)  
+            if timer <= 0:
+                final_score = 0
+                print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
+                print(f"Final Score: {final_score}")
+                running = False
+            display = GameView(self._walls, self._goal, self._items, self._player, timer) 
             display.draw_map()#-- displays the maze and player
 
         score_record = Score("Player", final_score)
