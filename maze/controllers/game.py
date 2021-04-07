@@ -5,6 +5,7 @@ from models.tiles import Item
 from models.tiles import Goal
 from models.tiles import Wall
 from models.player import Player
+from models.score import Score
 from controllers.player import PlayerController
 from views.game import GameView
 
@@ -71,12 +72,15 @@ class GameController():
         commands = PlayerController(self._player, self._maze) #-- intializes the player controller
 
         running = True
+        total_keypress = 0
         while running:
             time = clock.tick(60) #-- 60 frames at most per second
             for event in pygame.event.get(): #-- gets the input of your keyboard
                 if event.type == pygame.locals.QUIT:
                     running = False
+
                 if event.type == pygame.KEYUP:
+                    total_keypress += 1
                     #-- sets removes movement cooldown every time the key is released
                     if (event.key == pygame.K_UP):
                         action = "up"
@@ -94,16 +98,18 @@ class GameController():
                         action = "right"
                         commands._cd[action] = False
                         commands._time_passed[action] = 0
-            
+
             commands.get_input(time)
 
             if pygame.sprite.spritecollide(self._player, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player._backpack += 1
-            if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end them stop running the game
+            if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
                 if self._player._backpack == 4: #-- if the backpack has four in it, then you win
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
+                    print(f"Total key presses: {total_keypress}")
                 else:
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
+                    print(f"Total key presses: {total_keypress}")
                 running = False
 
             display = GameView(self._walls, self._goal, self._items, self._player) 
