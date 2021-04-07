@@ -1,6 +1,6 @@
-import pygame
 import json
 from datetime import date
+from typing import ByteString
 
 class Score:
     def __init__(self, player_name, score, datetime):
@@ -10,7 +10,7 @@ class Score:
         elif score < 0:
             raise ValueError("Invalid entry (cannot be less than 0)")
 
-        self._player_name = 'Player'
+        self._player_name = player_name
         self._score = score
         self._datetime = date.today()
 
@@ -34,9 +34,13 @@ def from_dict(self, dict):
         )
 
 def to_json(self):
-    n = Score()
-    json_string = json.dumps(vars(n))
+    string = f'{{"player_name" : {self._player_name}, "score" : {self._score}, "datetime" : {self._datetime}}}'
+    return string
 
 def to_dict(self):
-    n = Score()
-    vars(n)
+    dict = {
+        "player_name" : self._player_name,
+        "score" : self._score,
+        "datetime" : self._datetime
+    }
+    return dict
