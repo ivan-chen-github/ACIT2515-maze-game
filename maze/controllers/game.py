@@ -1,5 +1,7 @@
 import pygame
 import pygame.locals
+import requests
+import json
 from models.maze import Maze
 from models.tiles import Item
 from models.tiles import Goal
@@ -120,6 +122,6 @@ class GameController():
             display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
 
-
         score_record = Score("Player", final_score)
-        to_json(score_record)
+        json_score = json.dumps(score_record.__dict__)
+        response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})

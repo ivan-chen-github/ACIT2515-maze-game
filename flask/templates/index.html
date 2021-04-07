@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+body {background-color: #99ccff;}
+h1 {text-align: center;}
+h2 {text-align: center;}
+p {text-align: center;}
+</style>
+</head>
+
+<body>
+<h1>Maze Demo</h1>
+<h2>Highscores<h2>
+<p>
+    {% for line in var %}
+        <div>{% for key in line %}</div>
+            {{ line[key] }}
+        {% endfor %}
+    {% endfor %}
+</p>
+</body>
+
+</html>

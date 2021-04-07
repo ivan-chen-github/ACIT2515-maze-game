@@ -39,7 +39,7 @@ def from_json(self, json_file):
                 score=entry["score"],
                 datetime=entry["datetime"]
             )
-     
+            
     return obj
 
 def from_dict(self, dict):
