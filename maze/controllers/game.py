@@ -115,5 +115,5 @@ class GameController():
             display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
 
-            final_score = Score('Player', total_keypress)
-            json_fin_score = to_json(final_score)
+        final_score = Score("Player", total_keypress)
+        to_json(final_score)

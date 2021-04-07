@@ -13,8 +13,8 @@ class Score:
         self._score = int(score)
         self._date = datetime.today().strftime('%Y-%m-%d')
 
-def from_json(self, json_string):
-    with open(json_string, 'r') as f:
+def from_json(self, json_file):
+    with open(json_file, 'r') as f:
         json_data = json.load(f)
 
         for entry in list(json_data):
@@ -34,7 +34,9 @@ def from_dict(self, dict):
 
 def to_json(self):
     string = f'{{"player_name" : {self._player_name}, "score" : {self._score}, "date" : {self._date}}}'
-    return string
+    with open('scores.json', 'a') as f:
+        f.write(string)
+        f.write('\n')
 
 def to_dict(self):
     dict = {
