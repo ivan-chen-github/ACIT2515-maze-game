@@ -43,7 +43,9 @@ assignment_demo
 |------|-__init__.py                                                                                 
 |------|-maze.py                                                                                       
 |------|-player.py                                                                                   
-|------|-tiles.py                                                                                     
+|------|-tiles.py                                                                                                   
+|------|-score.py                                                                                                       
+|------|-score_manager.py                                                                                       
 |---|-views                                                                                            
 |------|-__init__.py                                                                                   
 |------|-game.py                                                                                   
