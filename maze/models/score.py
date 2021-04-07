@@ -33,7 +33,7 @@ def from_dict(self, dict):
         )
 
 def to_json(self):
-    string = f'{{"player_name" : {self._player_name}, "score" : {self._score}, "date" : {self._date}}}'
+    string = f'{{"player_name" : "{self._player_name}", "score" : {self._score}, "date" : {self._date}}}'
     with open('scores.json', 'a') as f:
         f.write(string)
         f.write('\n')

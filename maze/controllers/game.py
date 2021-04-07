@@ -105,15 +105,21 @@ class GameController():
                 self._player._backpack += 1
             if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
                 if self._player._backpack == 4: #-- if the backpack has four in it, then you win
+
+                    key_diff = total_keypress - 33 #-- find the difference of total keypress and fewest possible keypresses (33)
+                    final_score = 100 - key_diff #-- final score out of 100 based on extra keypresses past 33
+
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
-                    print(f"Total key presses: {total_keypress}")
+                    print(f"Final Score: {final_score}")
                 else:
+                    final_score = 0
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
-                    print(f"Total key presses: {total_keypress}")
+                    print(f"Final Score: {final_score}")
                 running = False
 
             display = GameView(self._walls, self._goal, self._items, self._player) 
             display.draw_map()#-- displays the maze and player
 
-        final_score = Score("Player", total_keypress)
-        to_json(final_score)
+
+        score_record = Score("Player", final_score)
+        to_json(score_record)
