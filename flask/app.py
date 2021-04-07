@@ -18,5 +18,11 @@ def score():
     to_json(request.get_json())
     return 200
 
+@app.route("/json", methods=['GET'])
+def _json():
+    with open(json_url) as json_file:
+        data = json.load(json_file)
+    return f'{data}'
+
 if __name__ == "__main__":
     app.run()

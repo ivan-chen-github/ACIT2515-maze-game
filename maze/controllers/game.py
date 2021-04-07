@@ -7,7 +7,7 @@ from models.tiles import Item
 from models.tiles import Goal
 from models.tiles import Wall
 from models.player import Player
-from models.score import Score, to_json
+from models.score import Score, to_json, from_json
 from controllers.player import PlayerController
 from views.game import GameView
 
@@ -76,7 +76,7 @@ class GameController():
         running = True
         total_keypress = 0
         clock = pygame.time.Clock()
-        timer = 10
+        timer = 20
         while running:
             time = clock.tick(60) #-- 60 frames at most per second
             for event in pygame.event.get(): #-- gets the input of your keyboard
@@ -127,8 +127,13 @@ class GameController():
                 print(f"Final Score: {final_score}")
                 running = False
             display = GameView(self._walls, self._goal, self._items, self._player, timer) 
-            display.draw_map()#-- displays the maze and player
+            display.draw_map() #-- displays the maze and player
 
-        score_record = Score("Player", final_score)
-        json_score = json.dumps(score_record.__dict__)
-        response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
+        if final_score > 0: #-- if player's score is not 0, then record score
+            score_record = Score("Player", final_score)
+            json_score = json.dumps(score_record.__dict__)
+
+            response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
+            #-- send score to Flask server
+
+

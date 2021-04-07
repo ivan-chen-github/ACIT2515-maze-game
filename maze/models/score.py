@@ -1,4 +1,6 @@
 import json
+import requests
+import ast
 from datetime import datetime
 
 class Score:
@@ -24,25 +26,20 @@ class Score:
         self._score = int(score)
         self._date = datetime.today().strftime('%m-%d %H:%M')
 
-def from_json(self, json_file):
-    """ Reads data from JSON file and creates object
+def from_json(flask_url):
+    """ Reads data from Flask server and creates object
 
-    :param json_file: file to be read
-    :type json_file: .json
+    :param flask_url: url of Flask server to get data from
+    :type flask_url: str
     """
-    with open(json_file, 'r') as f:
-        json_data = json.load(f)
+    reply = requests.get(flask_url)
+    payload = reply.content
+    dict_payload = ast.literal_eval(payload.decode("UTF-8"))
+    
+    return dict_payload
 
-        for entry in list(json_data):
-            obj = Score(
-                player_name=entry["player_name"],
-                score=entry["score"],
-                datetime=entry["datetime"]
-            )
-     
-    return obj
 
-def from_dict(self, dict):
+def from_dict(dict):
     """ Reads data from a dictionary and creates object
 
     :param dict: dictionary to be read
@@ -54,23 +51,23 @@ def from_dict(self, dict):
         date=dict["date"]
     )
 
-def to_json(self):
-    """ Takes Score object and serializes into JSON file
+def to_json(score_data):
+    """ Takes score data and serializes into JSON file
 
     """
     with open('scores.json') as json_file:
         data = json.load(json_file)
     with open('scores.json', mode='w') as f:
-        data.append(json.loads(self))
+        data.append(json.loads(score_data))
         json.dump(data, f)
 
-def to_dict(self):
+def to_dict(score):
     """ Takes Score object and creates a dictionary
 
     """
     dict = {
-        "player_name" : self._player_name,
-        "score" : self._score,
-        "date" : self._date
+        "player_name" : score._player_name,
+        "score" : score._score,
+        "date" : score._date
     }
     return dict
