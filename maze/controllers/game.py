@@ -174,12 +174,12 @@ class GameController():
                                 while count < name_length:
                                     true_name += name[count*2]
                                     count += 1
-                                
+
                                 score_record = Score(true_name, final_score)
                                 json_score = json.dumps(score_record.__dict__)
                                 response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
                                 #-- send score to Flask server
-                                
+
                                 end_screen = False
                                 final_screen = True
                             else:
@@ -196,27 +196,33 @@ class GameController():
 
                 display.draw_end(game_won, final_score, name)
             
+            if final_screen:
+                highscores = ScoreManager()
+                highscores = highscores.from_json("http://127.0.0.1:5000/json")
+                sorted_list = sorted(highscores, key=lambda k: k["score"], reverse=True)
+                print(sorted_list)
 
-            while final_screen == True:
+            while final_screen:
                 for event in pygame.event.get():
                     if event.type == pygame.locals.QUIT:
                         running = False
                         final_screen = False
                     if event.type == pygame.KEYDOWN:
-                        running = False
-                        final_screen = False
-                        return True
-                
+                        if (event.key == pygame.K_ESCAPE):
+                            running = False
+                            final_screen = False
+                            return False
+                        else:
+                            running = False
+                            final_screen = False
+                            return True
                 """
                 code to get scores from json:
-                print(ScoreManager.from_json(1, "http://127.0.0.1:5000/json"))
                 
+                highscores = ScoreManager()
+                highscores = highscores.from_json("http://127.0.0.1:5000/json")
+                sorted_list = sorted(highscores, key=lambda k: k["score"], reverse=True)
+                print(sorted_list)
                 """
+                display.draw_final(sorted_list)
                 
-
-                display.draw_final()
-
-
-
-
-

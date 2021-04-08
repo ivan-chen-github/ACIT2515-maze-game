@@ -75,15 +75,43 @@ class GameView():
         
         pygame.display.update()
 
-    def draw_final(self):
+    def draw_final(self, highscores):
         self._window.fill((0, 0, 0))
-        item_count = f"Hall of Fame"
-        continue_text = "Press any key to replay."
+        hall_text = f"Hall of Fame"
+        continue_text = "Press any other key to replay."
+        end_text = "Press esc to quit."
 
-        item_count_surface = self._arial.render(item_count, True, (255, 255, 255)) #--renders in font arial, and display the items collected
-        continue_text_surface = self._small_arial.render(continue_text, True, (255, 255, 255))
+        count = 0
+        while count < len(highscores) and count <= 6: #-- Display no more than 6 scores
+            name_text = highscores[count]['player_name'] #-- recorded name
+            name_padding = 12+2*(3-len(name_text)) #-- adds empty spaces
+            score_text = str(highscores[count]['score']) #-- recorded score
+            score_padding = 28+1*(3-len(score_text)) #-- adds empty spaces
+            date_text = highscores[count]['date'][:5] #-- show in format MM-DD
 
-        self._window.blit(item_count_surface, (500-item_count_surface.get_width()/2, 0))
+            name_text_surface = self._arial.render(name_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
+            score_text_surface = self._arial.render(score_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
+            date_text_surface = self._arial.render(date_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
+
+            self._window.blit(name_text_surface, (200, 100+50*count))
+            self._window.blit(score_text_surface, (500-score_text_surface.get_width()/2, 100+50*count))
+            self._window.blit(date_text_surface, (700, 100+50*count))
+            count += 1
+
+        hall_text_surface = self._arial.render(hall_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
+        continue_text_surface = self._small_arial.render(continue_text, True, (255, 255, 255)) 
+        end_text_surface = self._small_arial.render(end_text, True, (255, 255, 255)) 
+        name_label_surface = self._arial.render("Player", True, (255, 255, 255)) #--renders in font arial, and display the items collected
+        score_label_surface = self._arial.render("Score", True, (255, 255, 255)) #--renders in font arial, and display the items collected
+        date_label_surface = self._arial.render("Date", True, (255, 255, 255)) #--renders in font arial, and display the items collected
+
+
+        self._window.blit(hall_text_surface, (500-hall_text_surface.get_width()/2, 0))
         self._window.blit(continue_text_surface, (1000-continue_text_surface.get_width(), 550-continue_text_surface.get_height()))
-        
+        self._window.blit(end_text_surface, (0, 550-continue_text_surface.get_height()))
+
+        self._window.blit(name_label_surface, (200, 50))    #-- 3 parts of label are seperated to account for differences in character spacing
+        self._window.blit(score_label_surface, (500-score_label_surface.get_width()/2, 50))
+        self._window.blit(date_label_surface, (700, 50))
+
         pygame.display.update()
