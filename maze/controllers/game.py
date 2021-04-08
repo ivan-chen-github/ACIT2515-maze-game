@@ -3,12 +3,12 @@ import pygame.locals
 import requests
 import json
 from models.maze import Maze
-from models.tiles import Item
-from models.tiles import Goal
-from models.tiles import Wall
 from models.player import Player
 from models.score import Score, to_json, from_json
 from controllers.player import PlayerController
+from views.tiles import Item
+from views.tiles import Goal
+from views.tiles import Wall
 from views.game import GameView
 
 
@@ -117,7 +117,7 @@ class GameController():
                 """
                 DEBUG PURPOSES ONLY
                 """                
-#                self._player._backpack = 4
+                self._player._backpack = 4
                 if self._player._backpack == 4: #-- if the backpack has four in it, then you win
 
                     key_diff = total_keypress - 33 #-- find the difference of total keypress and fewest possible keypresses (33)

@@ -16,7 +16,7 @@ def home():
 @app.route("/score", methods=['PUT'])
 def score():
     to_json(request.get_json())
-    return 200
+    return "", 200
 
 @app.route("/json", methods=['GET'])
 def _json():
