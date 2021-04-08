@@ -67,8 +67,8 @@ class GameView():
 
         self._window.blit(item_count_surface, (500-item_count_surface.get_width()/2, 200))
         self._window.blit(status_text_surface, (500-status_text_surface.get_width()/2, 150))
-        self._window.blit(score_text_surface, (500-score_text_surface.get_width()/2, 250))
         if status == True:
+            self._window.blit(score_text_surface, (500-score_text_surface.get_width()/2, 250))
             self._window.blit(prompt_text_surface, (500-prompt_text_surface.get_width()/2, 300))
         self._window.blit(continue_text_surface, (1000-continue_text_surface.get_width(), 550-continue_text_surface.get_height()))
         
