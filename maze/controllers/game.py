@@ -5,6 +5,7 @@ import json
 from models.maze import Maze
 from models.player import Player
 from models.score import Score
+from models.score_manager import ScoreManager
 from controllers.player import PlayerController
 from views.tiles import Item
 from views.tiles import Goal
@@ -173,12 +174,12 @@ class GameController():
                                 while count < name_length:
                                     true_name += name[count*2]
                                     count += 1
-                                """
+                                
                                 score_record = Score(true_name, final_score)
                                 json_score = json.dumps(score_record.__dict__)
                                 response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
                                 #-- send score to Flask server
-                                """
+                                
                                 end_screen = False
                                 final_screen = True
                             else:
@@ -207,12 +208,15 @@ class GameController():
                         return True
                 
                 """
-                code to get scores from json
+                code to get scores from json:
+                print(ScoreManager.from_json(1, "http://127.0.0.1:5000/json"))
+                
                 """
+                
 
                 display.draw_final()
 
 
-            
+
 
 

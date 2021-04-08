@@ -1,5 +1,7 @@
 import json
 import csv
+import requests
+import ast
 from .score import Score
 import operator
 class ScoreManager():
@@ -63,13 +65,18 @@ class ScoreManager():
         with open(json_file,'w') as file:
             file.write(str(scores))
     
-    def from_json (self, json_file):
-        with open(json_file, 'r') as file:
-            json_data = json.load(file)
-            for item in json_data:
-                for value in json_data[item]:
-                    score = Score(value['name'],value['score'])
-                    self.add_score(score)
+    def from_json(self, flask_url):
+        """
+        Reads data from Flask server and creates nested list of scores
+
+        :param flask_url: url of Flask server to get data from
+        :type flask_url: str
+        """
+        reply = requests.get(flask_url)
+        payload = reply.content
+        dict_payload = ast.literal_eval(payload.decode("UTF-8"))
+        
+        return dict_payload
 
 
     def from_csv (self, csv_file):

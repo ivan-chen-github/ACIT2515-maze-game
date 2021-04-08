@@ -22,12 +22,12 @@ class Score:
         elif score < 0:
             raise ValueError("Invalid entry (cannot be less than 0)")
 
-        self._player_name = str(player_name)
-        self._score = int(score)
+        self.player_name = str(player_name)
+        self.score = int(score)
         if date == 'Undefined':
-            self._date = datetime.today().strftime('%m-%d %H:%M')
+            self.date = datetime.today().strftime('%m-%d %H:%M')
         else:
-            self._date = date
+            self.date = date
 
 def from_json(flask_url):
     """ Reads data from Flask server and creates nested list of scores
@@ -41,27 +41,6 @@ def from_json(flask_url):
     
     return dict_payload
 
-
-def from_dict(dict):
-    """ Reads data from a dictionary and creates object
-
-    :param dict: dictionary to be read
-    :type dict: dict
-    """
-    obj =''
-    if "date" in dict:
-        obj = Score(
-            player_name=dict["player_name"],
-            score=dict["score"],
-            date=dict["date"]
-        )
-    elif "date" not in dict:
-        obj = Score(
-            player_name=dict["player_name"],
-            score=dict["score"])
-    if type(obj) is Score:      
-        return obj
-
 def to_json(score_data):
     """ Takes score data and serializes into JSON file
 
@@ -71,14 +50,3 @@ def to_json(score_data):
     with open('scores.json', mode='w') as f:
         data.append(json.loads(score_data))
         json.dump(data, f)
-
-def to_dict(score):
-    """ Takes Score object and creates a dictionary
-
-    """
-    dict = {
-        "player_name" : score._player_name,
-        "score" : score._score,
-        "date" : score._date
-    }
-    return dict
