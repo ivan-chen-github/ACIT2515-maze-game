@@ -7,19 +7,30 @@ reach the goal. The maze structure is generated from a text file and items are r
 on empty coordinates within the maze. The player wins by collecting all four randomly placed items
 and then reaching the goal (symbolized by the Door in the maze).
 
+A second feature of the project is to save and display scores from the game onto a web page. The web page 
+served from a Flask server which is also run on the local machine. After a player wins the game, their 
+score is sent to the Flask server, which in turn will appear on the web page after refreshing the page.
+
 
 Team Members:                                                                       
 Ivan Chen       - UI and Game Logic Programming                                                       
-Brandley Gee    - Code Documentation and App Programming                                            
-Arshia Aryanfar - App Programming and Data Handling                                                      
-Edward To       - Project Management and Asset Preparation                                              
+Brandley Gee    - Code Documentation and Unit Testing                                            
+Arshia Aryanfar - Debugging and Data Handling                                                      
+Edward To       - Web API and Asset Management                                       
 
 
 Project Structure:                                                                                   
 assignment_demo                                                                                         
 |-README.md                                                                                        
 |-documentation                                                                                         
-|---|-uml.pdf                                                                                            
+|---|-uml.pdf                                                                                                      
+|-flask                                                                                                                  
+|---|-app.py                                                                                                                              
+|---|-scores.json                                                                                                     
+|---|-templates                                                                                               
+|------|-index.html                                                                                                              
+|---|-models                                                                                                     
+|------|-score.py                                                                                                      
 |-maze                                                                                                    
 |---|-main.py                                                                                               
 |---|-maze.txt                                                                                             
@@ -32,7 +43,9 @@ assignment_demo
 |------|-__init__.py                                                                                 
 |------|-maze.py                                                                                       
 |------|-player.py                                                                                   
-|------|-tiles.py                                                                                     
+|------|-tiles.py                                                                                                   
+|------|-score.py                                                                                                       
+|------|-score_manager.py                                                                                       
 |---|-views                                                                                            
 |------|-__init__.py                                                                                   
 |------|-game.py                                                                                   
@@ -40,8 +53,12 @@ assignment_demo
 
 Required Libraries:                                                                                  
 Since this game relies on Pygame modules, Pygame must be installed to run the game. Pygame can be
-installed using the command "pip install pygame" in the terminal.
+installed using the command "pip install pygame" in the terminal. Flask is required to run the web api 
+which hosts the scores on a webpage. Flask can be installed using the command "pip install Flask".
 
+Running the Flask server:                                                                                      
+To start the server, navigate to the "assignment_demo\flask" directory and run the command "python app.py"
+in the terminal. The web page can be accessed from your browser with the local url http://127.0.0.1:5000
 
 Running the game:                                                                                    
 To run the game, navigate to the "assignment_demo\maze" directory and run the command "python main.py"
