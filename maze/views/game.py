@@ -96,7 +96,7 @@ class GameView():
         end_text = "Press esc to quit."
 
         count = 0
-        while count < len(highscores) and count <= 6: #-- Display no more than 6 scores
+        while count < len(highscores) and count < 7: #-- Display 7 scores max
             name_text = highscores[count]['player_name'] #-- recorded name
             name_padding = 12+2*(3-len(name_text)) #-- adds empty spaces
             score_text = str(highscores[count]['score']) #-- recorded score

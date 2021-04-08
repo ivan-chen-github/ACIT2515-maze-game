@@ -89,18 +89,20 @@ class GameController():
                         if (event.key == pygame.K_BACKSPACE) and len(name) >= 1: #-- deletes most recent character
                             name = name[:len(name)-1]
                         elif (event.key == pygame.K_RETURN): #-- player submits their name
-                            score_record = Score(name, final_score)
-                            json_score = json.dumps(score_record.__dict__)
-                            response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
-                            #-- send score to Flask server
                             end_screen = False
                             score_screen = True
+                            if game_won:
+                                score_record = Score(name, final_score)
+                                json_score = json.dumps(score_record.__dict__)
+                                response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
+                                #-- send score to Flask server
                             return True #-- Go to score screen
 
                         elif type(event.unicode) is str and len(name) < MAX_NAME_LENGTH: #-- Adds key input to name
                             name = name + event.unicode.upper()
 
             display.draw_end(game_won, final_score, name, MAX_NAME_LENGTH)
+        
 
     def score_screen(self, display):
         """
@@ -190,7 +192,10 @@ class GameController():
             if pygame.sprite.spritecollide(self._player_sprite, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player.backpack += 1
             if pygame.sprite.spritecollide(self._player_sprite, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
-
+                """
+                DEBUG PURPOSE
+                """
+#                self._player.backpack = 4
                 if self._player.backpack == 4: #-- if the backpack has four in it, then you win
                     key_diff = total_keypress - 33 #-- find the difference of total keypress and fewest possible keypresses (33)
                     final_score = 100 - key_diff #-- final score out of 100 based on extra keypresses past 33
