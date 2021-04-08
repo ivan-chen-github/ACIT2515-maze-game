@@ -27,7 +27,7 @@ class Score:
         self._date = datetime.today().strftime('%m-%d %H:%M')
 
 def from_json(flask_url):
-    """ Reads data from Flask server and creates object
+    """ Reads data from Flask server and creates nested list of scores
 
     :param flask_url: url of Flask server to get data from
     :type flask_url: str
