@@ -31,7 +31,7 @@ class Item(Tile):
     :type y: int
     
     """
-    def __init__(self, x, y):
+    def __init__(self, x=0, y=0):
         super().__init__(x, y) #-- sets the value x,y value in parent class Tile
         self.image = pygame.image.load('assets/item.png')  #--loads the item image
 
