@@ -7,7 +7,7 @@ from models.tiles import Item
 from models.tiles import Goal
 from models.tiles import Wall
 from models.player import Player
-from models.score import Score, to_json, from_json
+from models.score import Score
 from controllers.player import PlayerController
 from views.game import GameView
 
