@@ -23,11 +23,8 @@ class Score:
             raise ValueError("Invalid entry (cannot be less than 0)")
 
         self.player_name = str(player_name)
-<<<<<<< HEAD
         self.score = int(score)
-=======
-        self._score = int(score)
->>>>>>> 3581711c19a7bae5e76ba18f1286ab0c9453edf2
+        
         if date == 'Undefined':
             self.date = datetime.today().strftime('%m-%d %H:%M')
         else:
