@@ -34,7 +34,7 @@ class GameView():
     
     def draw_map(self):
         self._window.fill((50, 25, 0))#-- fills the surface of the game
-        text = f"Items obtained: {self._player._backpack}"
+        text = f"Items obtained: {self._player.backpack}"
         text_surface = self._arial.render(text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
         self._window.blit(text_surface, (0, 500)) #-- displays the message
 
@@ -48,15 +48,22 @@ class GameView():
         #-- updates the display
         pygame.display.update()
 
-    def draw_end(self, status, final_score, name):
+    def draw_end(self, status, final_score, name, max_name_length):
+        NAME_FILLER = "_ "
         self._window.fill((0, 0, 0))
-        item_count = f"Items collected: {self._player._backpack}/4"
+        item_count = f"Items collected: {self._player.backpack}/4"
         if status == True:
             status_text = "You Win!"
         else:
             status_text = "You Lose."
         score_text = f"Final score: {final_score}"
-        prompt_text = f"Enter your name: {name}"
+        
+        if len(name) == 0:
+            display_name = "_ " + NAME_FILLER * (max_name_length-1)
+        else:
+            display_name = name + NAME_FILLER * (max_name_length-len(name))
+        
+        prompt_text = f"Enter your name: {display_name}"
         continue_text = "Press enter to continue."
 
         item_count_surface = self._arial.render(item_count, True, (255, 255, 255)) #--renders in font arial, and display the items collected
@@ -65,20 +72,19 @@ class GameView():
         prompt_text_surface = self._arial.render(prompt_text, True, (255, 255, 255))
         continue_text_surface = self._small_arial.render(continue_text, True, (255, 255, 255))
 
-
         self._window.blit(item_count_surface, (500-item_count_surface.get_width()/2, 200))
         self._window.blit(status_text_surface, (500-status_text_surface.get_width()/2, 150))
         if status == True:
             self._window.blit(score_text_surface, (500-score_text_surface.get_width()/2, 250))
-            self._window.blit(prompt_text_surface, (500-prompt_text_surface.get_width()/2, 300))
+            self._window.blit(prompt_text_surface, (300, 300))
         self._window.blit(continue_text_surface, (1000-continue_text_surface.get_width(), 550-continue_text_surface.get_height()))
         
         pygame.display.update()
 
-    def draw_final(self, highscores):
+    def draw_scores(self, highscores):
         self._window.fill((0, 0, 0))
         hall_text = f"Hall of Fame"
-        continue_text = "Press any other key to replay."
+        continue_text = "Press enter to replay."
         end_text = "Press esc to quit."
 
         count = 0
@@ -87,7 +93,7 @@ class GameView():
             name_padding = 12+2*(3-len(name_text)) #-- adds empty spaces
             score_text = str(highscores[count]['score']) #-- recorded score
             score_padding = 28+1*(3-len(score_text)) #-- adds empty spaces
-            date_text = highscores[count]['date'][:5] #-- show in format MM-DD
+            date_text = highscores[count]['date'] #-- show in format MM-DD
 
             name_text_surface = self._arial.render(name_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
             score_text_surface = self._arial.render(score_text, True, (255, 255, 255)) #--renders in font arial, and display the items collected

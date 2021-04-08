@@ -7,5 +7,5 @@ class Player():
     """
     def __init__(self):
         #-- number of items collected
-        self._backpack = 0
+        self.backpack = 0
         
