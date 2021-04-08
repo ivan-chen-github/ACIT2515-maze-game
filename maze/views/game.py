@@ -39,20 +39,20 @@ class GameView():
         text = f"Items obtained: {self._player.backpack}"
         text_surface = self._arial.render(text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
         self._window.blit(text_surface, (0, 500)) #-- displays the message
-
+        #-- draws items at bottom bar once you pick it up
         if self._player.backpack > 0:
             count = 0
             while count < self._player.backpack:
                 self._window.blit(self._item.image, (300+50*count, 500))
                 count += 1
-
         #-- draws the objects onto self._window
         self._window.blit(self._player_sprite.image, self._player_sprite.rect)
         self._items.draw(self._window)
         self._walls.draw(self._window)
         self._goal.draw(self._window)
-        timer_text = self._arial.render(str(round(self._timer, 2)), True, (255,255,255))
-        self._window.blit(timer_text, (900, 500))
+        timer_text = f"Time remaining: {str(round(self._timer, 2))}"
+        timer_text_surface = self._arial.render(timer_text, True, (255,255,255))
+        self._window.blit(timer_text_surface, (630, 500))
         #-- updates the display
         pygame.display.update()
 

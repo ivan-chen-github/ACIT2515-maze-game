@@ -61,7 +61,7 @@ class PlayerController():
 
     def check_cd(self, time, key):  
         """
-        Checks if 1 second has passed since the player's previous move
+        Checks if 0.5 seconds has passed since the player's previous move
         
         :param time: milliseconds since the last time clock.tick() was called.
         :type time: int
@@ -70,7 +70,7 @@ class PlayerController():
         :type key: str
         """
         self._time_passed[key] += time
-        if self._time_passed[key] >= 1000:
+        if self._time_passed[key] >= 500:
             self._time_passed[key] = 0
             self._cd[key] = False
 
