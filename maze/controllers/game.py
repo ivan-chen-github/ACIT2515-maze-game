@@ -74,9 +74,15 @@ class GameController():
         commands = PlayerController(self._player, self._maze) #-- intializes the player controller
 
         running = True
+        end_screen = False #-- shows game over screen if true
+        final_screen = False #-- shows high scores if true
         total_keypress = 0
         clock = pygame.time.Clock()
         timer = 20
+        final_score = 0
+        name = "_ _ _" #-- this is what the player's name
+        name_length = 0 #-- length of player's name
+
         while running:
             time = clock.tick(60) #-- 60 frames at most per second
             for event in pygame.event.get(): #-- gets the input of your keyboard
@@ -108,32 +114,102 @@ class GameController():
             if pygame.sprite.spritecollide(self._player, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player._backpack += 1
             if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
+                """
+                DEBUG PURPOSES ONLY
+                """                
+#                self._player._backpack = 4
                 if self._player._backpack == 4: #-- if the backpack has four in it, then you win
 
                     key_diff = total_keypress - 33 #-- find the difference of total keypress and fewest possible keypresses (33)
                     final_score = 100 - key_diff #-- final score out of 100 based on extra keypresses past 33
-
+                    """
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Win!")
                     print(f"Final Score: {final_score}")
+                    """
+                    game_won = True
                 else:
+                    """
                     final_score = 0
                     print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
                     print(f"Final Score: {final_score}")
-                running = False
+                    """
+                    game_won = False
+                end_screen = True
             timer = timer - (time/1000)  
             if timer <= 0:
+                """
                 final_score = 0
                 print(f"\nItems collected: {self._player._backpack}/4.\nYou Lose.")
                 print(f"Final Score: {final_score}")
-                running = False
+                """
+                game_won = False
+                end_screen = True
             display = GameView(self._walls, self._goal, self._items, self._player, timer) 
             display.draw_map() #-- displays the maze and player
 
-        if final_score > 0: #-- if player's score is not 0, then record score
-            score_record = Score("Player", final_score)
-            json_score = json.dumps(score_record.__dict__)
+            
+            while end_screen == True: #-- Display game over screen
+                time = clock.tick(60) #-- 60 frames at most per second
+                for event in pygame.event.get(): #-- gets the input of your keyboard
+                    if event.type == pygame.locals.QUIT:
+                        running = False
+                        end_screen = False
+                    if event.type == pygame.KEYDOWN:
+                        if name_length <= 3:
+                            if (event.key == pygame.K_BACKSPACE):
+                                if name_length >= 1:
+                                    if name_length == 3:
+                                        name = name[0:4] + "_"
+                                    elif name_length == 2:
+                                        name = name[0:2] + "_ _"
+                                    elif name_length == 1:
+                                        name = "_ _ _"
+                                    name_length -= 1
+                            elif (event.key == pygame.K_RETURN): #-- player submits their name
+                                true_name = "" #-- unformatted name to be stored
+                                count = 0
+                                while count < name_length:
+                                    true_name += name[count*2]
+                                    count += 1
+                                score_record = Score(true_name, final_score)
+                                json_score = json.dumps(score_record.__dict__)
+                                response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
+                                #-- send score to Flask server
 
-            response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
-            #-- send score to Flask server
+                                end_screen = False
+                                final_screen = True
+                            else:
+                                if type(event.unicode) is str and event.unicode != "":
+                                    if name_length == 0:
+                                        name = event.unicode.upper() + name[1:]
+                                        name_length += 1
+                                    elif name_length == 1:
+                                        name = name[:2] + event.unicode.upper() + name[3:]
+                                        name_length += 1
+                                    elif name_length == 2:
+                                        name = name[:4] + event.unicode.upper()
+                                        name_length += 1
+
+                display.draw_end(game_won, final_score, name)
+            
+
+            while final_screen == True:
+                for event in pygame.event.get():
+                    if event.type == pygame.locals.QUIT:
+                        running = False
+                        final_screen = False
+                    if event.type == pygame.KEYDOWN:
+                        running = False
+                        final_screen = False
+                        return True
+                
+                """
+                code to get scores from json
+                """
+
+                display.draw_final()
+
+
+            
 
 
