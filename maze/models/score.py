@@ -22,7 +22,7 @@ class Score:
         elif score < 0:
             raise ValueError("Invalid entry (cannot be less than 0)")
 
-        self._player_name = str(player_name)
+        self.player_name = str(player_name)
         self._score = int(score)
         if date == 'Undefined':
             self._date = datetime.today().strftime('%m-%d %H:%M')
@@ -34,7 +34,7 @@ class Score:
 
         """
         dict = {
-            "player_name" : self._player_name,
+            "player_name" : self.player_name,
             "score" : self._score,
             "date" : self._date
         }

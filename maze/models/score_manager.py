@@ -22,7 +22,7 @@ class ScoreManager():
         Returns:
             None"""
         
-        self._scores[score.name] = score
+        self._scores[score.player_name] = score
 
     def remove_score(self, score_name):
         """ Removes score
@@ -37,11 +37,11 @@ class ScoreManager():
             del self._scores[score_name]
     def get_scores(self):
         """ Will get all of the scores 
-        return: string of scores
+        return: list of scores
         """
         score_list = []
         for score in self._scores:
-            score_list.append({"name": self._scores[score]._name, 'score' :self._scores[score].score})
+            score_list.append({"name": self._scores[score].player_name, 'score' :self._scores[score]._score})
         return score_list
 
     def serialize(self):
@@ -56,7 +56,7 @@ class ScoreManager():
     def to_json(self, json_file):
         convert_list = []
         for score in self._scores:
-            convert = {"name": self._scores[score]._name, 'score' :self._scores[score].score}
+            convert = {"name": self._scores[score].player_name, 'score' :self._scores[score].score}
             convert_list.append(convert)
         scores = {"scores": convert_list}
         print(scores)
@@ -81,3 +81,4 @@ class ScoreManager():
                     print(item[1])
                     score = Score(item[0], int(item[1]))
                     self.add_score(score)
+
