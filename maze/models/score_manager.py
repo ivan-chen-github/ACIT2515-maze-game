@@ -2,7 +2,7 @@ import json
 import csv
 import requests
 import ast
-from .score import Score
+from models.score import Score
 import operator
 class ScoreManager():
     def __init__(self):

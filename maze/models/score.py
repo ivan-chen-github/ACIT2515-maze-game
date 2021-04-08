@@ -24,7 +24,7 @@ class Score:
 
         self.player_name = str(player_name)
         self.score = int(score)
-        
+
         if date == 'Undefined':
             self.date = datetime.today().strftime('%m-%d %H:%M')
         else:
@@ -36,17 +36,18 @@ class Score:
         """
         dict = {
             "player_name" : self.player_name,
-            "score" : self._score,
-            "date" : self._date
+            "score" : self.score,
+            "date" : self.date
         }
         return dict
 
 def from_dict(dict):
+    """
     Reads data from a dictionary and creates object
-
+    
     :param dict: dictionary to be read
     :type dict: dict
-    
+    """
     obj =''
     if "date" in dict:
         obj = Score(
@@ -60,4 +61,3 @@ def from_dict(dict):
             score=dict["score"])
     if type(obj) is Score:      
         return obj
-
