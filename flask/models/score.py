@@ -42,8 +42,11 @@ def from_json(flask_url):
     return dict_payload
 
 def to_json(score_data):
-    """ Takes score data and serializes into JSON file
+    """ 
+    Takes score data and serializes into JSON file
 
+    :param score_data: is the score data that is going to written
+    :type: str
     """
     with open('scores.json') as json_file:
         data = json.load(json_file)
