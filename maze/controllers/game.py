@@ -3,12 +3,13 @@ import pygame.locals
 import requests
 import json
 from models.maze import Maze
-from models.tiles import Item
-from models.tiles import Goal
-from models.tiles import Wall
 from models.player import Player
 from models.score import Score
 from controllers.player import PlayerController
+from views.tiles import Item
+from views.tiles import Goal
+from views.tiles import Wall
+from views.player import PlayerView
 from views.game import GameView
 
 
@@ -28,6 +29,7 @@ class GameController():
         self._walls = pygame.sprite.Group() # -- create items in sprite group
         self._goal = pygame.sprite.Group() # -- create items in sprite group
         self._player = Player()# -- creates a player
+        self._player_sprite = PlayerView()
 
 
     def create_world(self):
@@ -40,8 +42,8 @@ class GameController():
                     self._goal.add(Goal(x*self.TILE_PX, y*self.TILE_PX))
                     self._invalid_locs.append((x,y))
                 if char == "p": #-- if it is a p add the player at the location
-                    self._player.rect.x = x*self.TILE_PX
-                    self._player.rect.y = y*self.TILE_PX
+                    self._player_sprite.rect.x = x*self.TILE_PX
+                    self._player_sprite.rect.y = y*self.TILE_PX
                     self._invalid_locs.append((x,y))   
                 
 
@@ -71,7 +73,7 @@ class GameController():
         self.place_items()
 
         cd = False
-        commands = PlayerController(self._player, self._maze) #-- intializes the player controller
+        commands = PlayerController(self._player_sprite, self._maze) #-- intializes the player controller
 
         running = True
         end_screen = False #-- shows game over screen if true
@@ -111,13 +113,13 @@ class GameController():
 
             commands.get_input(time)
 
-            if pygame.sprite.spritecollide(self._player, self._items, dokill=True): #-- if the player gets to the item add to backpack
+            if pygame.sprite.spritecollide(self._player_sprite, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player._backpack += 1
-            if pygame.sprite.spritecollide(self._player, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
+            if pygame.sprite.spritecollide(self._player_sprite, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
                 """
                 DEBUG PURPOSES ONLY
                 """                
-#                self._player._backpack = 4
+                self._player._backpack = 4
                 if self._player._backpack == 4: #-- if the backpack has four in it, then you win
 
                     key_diff = total_keypress - 33 #-- find the difference of total keypress and fewest possible keypresses (33)
@@ -144,7 +146,7 @@ class GameController():
                 """
                 game_won = False
                 end_screen = True
-            display = GameView(self._walls, self._goal, self._items, self._player, timer) 
+            display = GameView(self._walls, self._goal, self._items, self._player, timer, self._player_sprite) 
             display.draw_map() #-- displays the maze and player
 
             
@@ -171,11 +173,12 @@ class GameController():
                                 while count < name_length:
                                     true_name += name[count*2]
                                     count += 1
+                                """
                                 score_record = Score(true_name, final_score)
                                 json_score = json.dumps(score_record.__dict__)
                                 response = requests.put("http://127.0.0.1:5000/score", json=json_score, headers={"Content-type": "application/json"})
                                 #-- send score to Flask server
-
+                                """
                                 end_screen = False
                                 final_screen = True
                             else:
