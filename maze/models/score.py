@@ -8,7 +8,7 @@ class Score:
     Creates score object that can be serialized to JSON
 
     """
-    def __init__(self, player_name, score):
+    def __init__(self, player_name, score, date = 'Undefined'):
         """ Initializes score
 
         :param player_name: name of player
@@ -24,7 +24,10 @@ class Score:
 
         self._player_name = str(player_name)
         self._score = int(score)
-        self._date = datetime.today().strftime('%m-%d %H:%M')
+        if date == 'Undefined':
+            self._date = datetime.today().strftime('%m-%d %H:%M')
+        else:
+            self._date = date
 
 def from_json(flask_url):
     """ Reads data from Flask server and creates object
@@ -45,11 +48,19 @@ def from_dict(dict):
     :param dict: dictionary to be read
     :type dict: dict
     """
-    obj = Score(
-        player_name=dict["player_name"],
-        score=dict["score"],
-        date=dict["date"]
-    )
+    obj =''
+    if "date" in dict:
+        obj = Score(
+            player_name=dict["player_name"],
+            score=dict["score"],
+            date=dict["date"]
+        )
+    elif "date" not in dict:
+        obj = Score(
+            player_name=dict["player_name"],
+            score=dict["score"])
+    if type(obj) is Score:      
+        return obj
 
 def to_json(score_data):
     """ Takes score data and serializes into JSON file
