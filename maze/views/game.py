@@ -1,7 +1,7 @@
 import pygame
 
 class GameView():
-    def __init__(self, walls, goal, items, player, timer):
+    def __init__(self, walls, goal, items, player, timer, player_sprite):
         """
         Initializes the Gameview in order to view the maze
         
@@ -30,6 +30,7 @@ class GameView():
         self._window = pygame.display.set_mode((1000, 550)) #-- is the size of the screen for the maze. currently assumes 20 tiles across and 10 tiles down.
         self._window.set_colorkey((255, 255, 255)) #-- sets the transparency
         self._timer = timer
+        self._player_sprite = player_sprite
     
     def draw_map(self):
         self._window.fill((50, 25, 0))#-- fills the surface of the game
@@ -38,7 +39,7 @@ class GameView():
         self._window.blit(text_surface, (0, 500)) #-- displays the message
 
         #-- draws the objects onto self._window
-        self._window.blit(self._player.image, self._player.rect)
+        self._window.blit(self._player_sprite.image, self._player_sprite.rect)
         self._items.draw(self._window)
         self._walls.draw(self._window)
         self._goal.draw(self._window)

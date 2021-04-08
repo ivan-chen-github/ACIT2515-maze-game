@@ -36,7 +36,7 @@ class Score:
         dict = {
             "player_name" : self._player_name,
             "score" : self._score,
-            "date" : self.._date
+            "date" : self._date
         }
         return dict
 
