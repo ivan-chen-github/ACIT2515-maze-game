@@ -82,4 +82,3 @@ class PlayerController():
         :type key: str
         """
         self._cd[key] = False
-

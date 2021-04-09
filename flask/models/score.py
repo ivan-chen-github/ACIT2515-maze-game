@@ -9,7 +9,8 @@ class Score:
 
     """
     def __init__(self, player_name, score, date = 'Undefined'):
-        """ Initializes score
+        """
+        Initializes score
 
         :param player_name: name of player
         :type player_name: str
@@ -30,7 +31,8 @@ class Score:
             self.date = date
 
 def from_json(flask_url):
-    """ Reads data from Flask server and creates nested list of scores
+    """
+    Reads data from Flask server and creates nested list of scores
 
     :param flask_url: url of Flask server to get data from
     :type flask_url: str
@@ -43,9 +45,10 @@ def from_json(flask_url):
 
 def to_json(score_data):
     """ 
-    Takes score data and serializes into JSON file
+    Takes score data and serializes into JSON file. 'scores.json' file must 
+    be initialized with an empty list first.
 
-    :param score_data: is the score data that is going to written
+    :param score_data: data to be written to the file
     :type: str
     """
     with open('scores.json') as json_file:
