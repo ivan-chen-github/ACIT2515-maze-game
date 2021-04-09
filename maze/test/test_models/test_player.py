@@ -3,9 +3,9 @@ import pygame
 from models.player import Player
 
 def test_create_player():
+    """
+    check player has attribute backpack and it is an int
+    """
     player1 = Player()
-    assert hasattr(player1,'image')
-    assert hasattr(player1,'rect')
-    assert hasattr(player1,'rect.x')
-    assert hasattr(player1,'rect.y')
-    assert hasattr(player1, '_backpack')
+    assert hasattr(player1, 'backpack')
+    assert type(player1.backpack) is int

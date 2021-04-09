@@ -4,7 +4,8 @@ from models.score import from_dict
 from datetime import datetime
 import json
 from unittest.mock import patch
-def test_intialization_score():
+
+def test_init_score():
     """ 
     test the initialization of the score
     """
@@ -12,6 +13,46 @@ def test_intialization_score():
     assert score.player_name == "billy" #-- checks if its the right name
     assert score.score == 80 #-- checks if the score is 80
     assert hasattr(score, "date")
+
+def test_name_str():
+    """
+    check if name is str when 
+    """
+    score = Score(4, 1)
+    assert type(score.player_name) is str
+
+def test_score_int():
+    """
+    check if ValueError is raised when score is not int
+    """
+    try:
+        score = Score("billy", "string")
+        assert False
+    except ValueError:
+        pass
+    except:
+        assert False
+
+def test_score_value():
+    """
+    check if ValueError is raised when score is < 0
+    """
+    try:
+        score = Score("billy", -5)
+        assert False
+    except ValueError:
+        pass
+    except:
+        assert False
+
+def test_score_date():
+    """
+    check if date is the argument passed, or is calculated of no argument is passed
+    """
+    score = Score("Billy", 89, "01-01:2020")
+    assert score.date == "01-01:2020"
+    score = Score("Billy", 89)
+    assert score.date == datetime.today().strftime('%m-%d %H:%M')
 
 def test_to_dict():
     score = Score("billy", 80)
