@@ -1,7 +1,7 @@
 import pygame
 
 class GameView():
-    def __init__(self, walls, goal, items, player, timer, player_sprite):
+    def __init__(self, walls, goal, items, player, timer, player_sprite, obtained_items):
         """
         Initializes the Gameview in order to view the maze
         
@@ -31,8 +31,9 @@ class GameView():
         self._window.set_colorkey((255, 255, 255)) #-- sets the transparency
         self._timer = timer
         self._player_sprite = player_sprite
+        self._obtained_items = obtained_items
     
-    def draw_map(self, obtained_items):
+    def draw_map(self):
         self._window.fill((50, 25, 0))#-- fills the surface of the game
         text = f"Items obtained: {self._player.backpack}"
         text_surface = self._arial.render(text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
@@ -45,7 +46,7 @@ class GameView():
                 self._window.blit(self._item.image, (300+50*count, 500))
                 count += 1
         """
-        for index, item in enumerate(obtained_items):
+        for index, item in enumerate(self._obtained_items):
             self._window.blit(item.image,  (300+50*index, 500))
         #-- draws the objects onto self._window
         self._window.blit(self._player_sprite.image, self._player_sprite.rect)

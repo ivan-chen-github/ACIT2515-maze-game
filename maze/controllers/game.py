@@ -210,8 +210,8 @@ class GameController():
             if timer <= 0:
                 game_won = False
                 end_screen = True
-            display = GameView(self._walls, self._goal, self._items, self._player, timer, self._player_sprite) 
-            display.draw_map(self._obtained_items) #-- displays the maze and player
+            display = GameView(self._walls, self._goal, self._items, self._player, timer, self._player_sprite, self._obtained_items) 
+            display.draw_map() #-- displays the maze and player
             
             if end_screen:
                 score_screen = self.end_screen(display, game_won, final_score) #-- true is end_screen exits properly
