@@ -31,6 +31,7 @@ class GameController():
         self._goal = pygame.sprite.Group() # -- create items in sprite group
         self._player = Player() # -- creates a player
         self._player_sprite = PlayerView() #-- player's sprite
+        self._obtained_items = [] #-- a list of items obtained
         self._running = True
 
     def create_world(self):
@@ -56,7 +57,7 @@ class GameController():
             if loc not in self._invalid_locs:  #-- checks the item doesn't spawn on the play, exit, or another item
                 self._invalid_locs.append(loc) #-- marks the location as invalid for next item spawn
                 x, y = loc
-                self._items.add(Item(x*self.TILE_PX, y*self.TILE_PX)) #-- adds the item to the maze
+                self._items.add(Item(x*self.TILE_PX, y*self.TILE_PX, item_count)) #-- adds the item to the maze
                 item_count += 1
 
     def end_screen(self, display, game_won, final_score):
@@ -186,9 +187,11 @@ class GameController():
                         action = "right"
                         commands._cd[action] = False
                         commands._time_passed[action] = 0
-
+            
             commands.get_input(time)
-
+            loot = pygame.sprite.spritecollide(self._player_sprite, self._items, dokill=False) #-- if the player gets to the item save it to a list
+            if not loot == []:
+                self._obtained_items.append(loot[0])
             if pygame.sprite.spritecollide(self._player_sprite, self._items, dokill=True): #-- if the player gets to the item add to backpack
                 self._player.backpack += 1
             if pygame.sprite.spritecollide(self._player_sprite, self._goal, dokill=True): #-- if the player reaches the end then stop running the game
@@ -208,7 +211,7 @@ class GameController():
                 game_won = False
                 end_screen = True
             display = GameView(self._walls, self._goal, self._items, self._player, timer, self._player_sprite) 
-            display.draw_map() #-- displays the maze and player
+            display.draw_map(self._obtained_items) #-- displays the maze and player
             
             if end_screen:
                 score_screen = self.end_screen(display, game_won, final_score) #-- true is end_screen exits properly

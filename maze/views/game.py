@@ -1,5 +1,4 @@
 import pygame
-from views.tiles import Item
 
 class GameView():
     def __init__(self, walls, goal, items, player, timer, player_sprite):
@@ -32,19 +31,22 @@ class GameView():
         self._window.set_colorkey((255, 255, 255)) #-- sets the transparency
         self._timer = timer
         self._player_sprite = player_sprite
-        self._item = Item()
     
-    def draw_map(self):
+    def draw_map(self, obtained_items):
         self._window.fill((50, 25, 0))#-- fills the surface of the game
         text = f"Items obtained: {self._player.backpack}"
         text_surface = self._arial.render(text, True, (255, 255, 255)) #--renders in font arial, and display the items collected
         self._window.blit(text_surface, (0, 500)) #-- displays the message
+        """
         #-- draws items at bottom bar once you pick it up
         if self._player.backpack > 0:
             count = 0
             while count < self._player.backpack:
                 self._window.blit(self._item.image, (300+50*count, 500))
                 count += 1
+        """
+        for index, item in enumerate(obtained_items):
+            self._window.blit(item.image,  (300+50*index, 500))
         #-- draws the objects onto self._window
         self._window.blit(self._player_sprite.image, self._player_sprite.rect)
         self._items.draw(self._window)

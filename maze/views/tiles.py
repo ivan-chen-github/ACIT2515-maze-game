@@ -30,10 +30,20 @@ class Item(Tile):
     :param y: y is the coordinate that it will place a tile on the y axis in the game
     :type y: int
     
+    :param count: the number of items created so far
+    :type count: int
     """
-    def __init__(self, x=0, y=0):
+    def __init__(self, x, y, count):
         super().__init__(x, y) #-- sets the value x,y value in parent class Tile
-        self.image = pygame.image.load('assets/item.png')  #--loads the item image
+        if count == 0:
+            self.image = pygame.image.load('assets/item.png')  #--loads the item image
+        elif count == 1:
+            self.image = pygame.image.load('assets/sword.png')  #--loads the item image
+        elif count == 2:
+            self.image = pygame.image.load('assets/bow.png')  #--loads the item image
+        else:
+            self.image = pygame.image.load('assets/shield.png')  #--loads the item image
+
 
 class Wall(Tile):
     """
