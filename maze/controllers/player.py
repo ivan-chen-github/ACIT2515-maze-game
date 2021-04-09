@@ -5,7 +5,7 @@ class PlayerController():
 
     TILE_PX = 50 #-- width/height of a tile
     
-    def __init__(self, player, maze):
+    def __init__(self, player_sprite, maze):
         """
         Intializes the controller for the player, so you are able to move the player
 
@@ -15,7 +15,7 @@ class PlayerController():
         :param maze: is the maze that the player will be in
         :type maze: Maze
         """
-        self._player = player
+        self._player = player_sprite
         self._maze = maze  
         self._cd = {"up": False, "down": False, "left": False, "right": False} #-- movement cooldown. if true, player can not move
         self._time_passed = {"up": 0, "down": 0, "left": 0, "right": 0}  #-- time since player's previous move
