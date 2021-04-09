@@ -1,6 +1,8 @@
 import pytest
 from models.score import Score
 import json
+import os
+
 @pytest.fixture
 def score():
     return Score("charlie", 10, 'January 1 1999')
@@ -16,10 +18,12 @@ def test_score_init(score):
 
 def test_to_json():
     """ test to if there is a score.json file and compares to what should be in there"""
-    with open('../scores.json', mode='r') as f:
+    root = os.path.dirname((os.path.dirname(__file__)))
+    json_url = os.path.join(root, 'scores.json')
+    with open(json_url, mode='r') as f:
         data = json.load(f)
-        data = json.dumps(data)
-        if data == '[{"player_name": "AAA", "score": 90, "date": "01-01 00:00"}, {"player_name": "BBB", "score": 85, "date": "01-01 00:00"}, {"player_name": "DDD", "score": 70, "date": "01-01 00:00"}, {"player_name": "CCC", "score": 80, "date": "01-01 00:00"}, {"player_name": "EEE", "score": 60, "date": "01-01 00:00"}, {"player_name": "FFF", "score": 50, "date": "01-01 00:00"}, {"player_name": "LENKA", "score": 100, "date": "01-01 00:00"}, {"player_name": "BRAD", "score": 108, "date": "04-08 21:27"}]':
+        print(data[0])
+        if data[0] == {'player_name': 'AAA', 'score': 90, 'date': '01-01 00:00'}:
             assert True
-        else: 
+        else:
             assert False
