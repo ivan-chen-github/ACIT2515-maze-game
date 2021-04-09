@@ -71,9 +71,9 @@ Running the Flask server:
 To start the server, navigate to the "assignment_demo\web" directory and run the command "python app.py"
 in the terminal. The web page can be accessed from your browser with the local url http://localhost:5000  
 
-Web API:                                                                                                  
-PUT - /score - Receives score data from the game and writes it scores.json
-GET - /json  - Reads and returns the score data from scores.json for the game to access
+Web API:                                                                                                                                                                                                        
+PUT - /score - Receives score data from the game and writes it scores.json                                        
+GET - /json  - Reads and returns the score data from scores.json for the game to access                   
 
 Running the game:                                                                                    
 To run the game, navigate to the "assignment_demo\maze" directory and run the command "python main.py"
