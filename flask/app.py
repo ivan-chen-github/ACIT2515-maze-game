@@ -15,7 +15,8 @@ def home():
     """
     with open(json_url) as json_file:
         data = json.load(json_file)
-    return render_template('index.html', var = data)
+        sorted_data = sorted(data, key=lambda k: k["score"], reverse=True) #-- sort all recorded scores by highest score
+    return render_template('index.html', var = sorted_data)
 
 @app.route("/score", methods=['PUT'])
 def score():

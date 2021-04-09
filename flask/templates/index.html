@@ -9,14 +9,18 @@
 <body>
 <h1>Maze Demo</h1>
 <img src="../static/maze.jpg" alt="mazegame.jpg" class="image" />
-<h2>Highscores<h2>
-<p>
+<h1>Highscores</h1>
+
+<div class="scoreboard">
+    <div class="score"><b>Name</b></div>
+    <div class="score"><b>Score</b></div>
+    <div class="score"><b>Date/Time</b></div>
     {% for line in var %}
-        <div>{% for key in line %}</div>
-            {{ line[key] }}
+        {% for key in line %}
+            <div class="score">{{ line[key] }}</div>
         {% endfor %}
     {% endfor %}
-</p>
+</div>
 </body>
 
 </html>
