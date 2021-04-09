@@ -221,5 +221,3 @@ class GameController():
                 self._running = False
                 return replay
         
-    
-
