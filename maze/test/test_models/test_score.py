@@ -1,32 +1,27 @@
 import pytest
 from models.score import Score
-from models.score import to_dict
-from models.score import from_dict, to_json
+from models.score import from_dict
 from datetime import datetime
 import json
-import os
+from unittest.mock import patch
 def test_intialization_score():
+    """ 
+    test the initialization of the score
+    """
     score = Score("billy", 80)
-    assert score._player_name == "billy"
-    assert score._score == 80
-    assert hasattr(score, "_date")
+    assert score.player_name == "billy" #-- checks if its the right name
+    assert score.score == 80 #-- checks if the score is 80
+    assert hasattr(score, "date")
 
 def test_to_dict():
     score = Score("billy", 80)
-    dict = to_dict(score)
-    assert dict == {"player_name": "billy", "score": 80, "date":datetime.today().strftime('%m-%d %H:%M')}
+    dict = score.to_dict()
+    assert dict == {"player_name": "billy", "score": 80, "date":datetime.today().strftime('%m-%d %H:%M')} #-- checks if it returns the dictionary in order
 
 def test_from_dict():
-    score = from_dict({"player_name": "billy", "score": 80, 'date': datetime.today().strftime('%m-%d %H:%M')})
-    if type(score) is Score:
+    score = from_dict({"player_name": "billy", "score": 80, 'date': datetime.today().strftime('%m-%d %H:%M')}) #-- inserts a dictionary
+    if type(score) is Score: #-- makes sure it is a score and if not it will fail
         assert True
     else:
         assert False
 
-def test_to_json():
-    score = from_dict({"player_name": "billy", "score": 80, 'date': datetime.today().strftime('%m-%d %H:%M')})
-    to_json(score)
-    site_root = os.path.realpath(os.path.dirname(__file__))
-    json_url = os.path.join(site_root, 'scores.json')
-    with open(json_url, mode = 'r') as file:
-        assert file.data.getvalue() == json.dumps({"player_name": "billy", "score": 80, 'date': datetime.today().strftime('%m-%d %H:%M')})
