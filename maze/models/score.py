@@ -16,6 +16,9 @@ class Score:
 
         :param score: total score of player
         :type score: int
+        
+        :param date: is the date that the score the player achieved
+        :type date: date
         """
         if type(score) is not int:
             raise ValueError("Invalid entry (score must be an integer)")
@@ -24,14 +27,17 @@ class Score:
 
         self.player_name = str(player_name)
         self.score = int(score)
-        if date == 'Undefined':
+        if date == 'Undefined': #-- if it is the default value make self._date the current date and time
             self.date = datetime.today().strftime('%m-%d %H:%M')
         else:
-            self.date = date
+            self.date = date #-- if there is a date inputed then it will set it to that date
 
     def to_dict(self):
-        """ Takes Score object and creates a dictionary
-
+        """ 
+        Takes Score object and creates a dictionary
+        
+        return dict: returns a dictionary of that current score object
+        return type: dictionary
         """
         dict = {
             "player_name" : self.player_name,
@@ -46,17 +52,20 @@ def from_dict(dict):
     
     :param dict: dictionary to be read
     :type dict: dict
+    
+    return obj: is the score object created by the information of dict
+    :return type: score
     """
     obj =''
-    if "date" in dict:
+    if "date" in dict: #-- if date is included in the dictionary that was pass through then we will make that score with the date given
         obj = Score(
             player_name=dict["player_name"],
             score=dict["score"],
             date=dict["date"]
         )
-    elif "date" not in dict:
+    elif "date" not in dict: #--if it was not given a date then we will not pass in the date and score will make it the current date and time
         obj = Score(
             player_name=dict["player_name"],
             score=dict["score"])
-    if type(obj) is Score:      
+    if type(obj) is Score: #-- makes sure the the variable is a Score object      
         return obj
