@@ -15,8 +15,8 @@ score is sent to the Flask server, which in turn will appear on the web page aft
 Team Members:                                                                       
 Ivan Chen       - UI and Game Logic Programming                                                       
 Brandley Gee    - Code Documentation and Unit Testing                                            
-Arshia Aryanfar - Debugging and Data Handling                                                      
-Edward To       - Web API and Asset Management                                       
+Arshia Aryanfar - Debugging                                                      
+Edward To       - Web API and Data Handling                                                                                                        
 
 
 Project Structure:                                                                                   
@@ -31,6 +31,9 @@ assignment_demo
 |------|-index.html                                                                                                              
 |---|-models                                                                                                     
 |------|-score.py                                                                                                      
+|---|-static                                                                                                                                  
+|------|-banner.png                                                                                                                         
+|------|-style.css                                                                                                                            
 |-maze                                                                                                    
 |---|-main.py                                                                                               
 |---|-maze.txt                                                                                             
@@ -48,7 +51,9 @@ assignment_demo
 |------|-score_manager.py                                                                                       
 |---|-views                                                                                            
 |------|-__init__.py                                                                                   
-|------|-game.py                                                                                   
+|------|-game.py                                                                                                                           
+|---|-test                                                                                                                       
+|------|-...                                                                                                  
 
 
 Required Libraries:                                                                                  
@@ -58,7 +63,7 @@ which hosts the scores on a webpage. Flask can be installed using the command "p
 
 Running the Flask server:                                                                                      
 To start the server, navigate to the "assignment_demo\flask" directory and run the command "python app.py"
-in the terminal. The web page can be accessed from your browser with the local url http://127.0.0.1:5000
+in the terminal. The web page can be accessed from your browser with the local url http://localhost:5000
 
 Running the game:                                                                                    
 To run the game, navigate to the "assignment_demo\maze" directory and run the command "python main.py"
